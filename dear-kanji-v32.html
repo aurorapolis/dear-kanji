@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dear幹事</title>
+<style>
+:root{
+  --ai:#16304d;
+  --ai-fuka:#0e2035;
+  --kami:#f7f4ec;
+  --kami-kage:#ebe5d7;
+  --shu:#c4302b;
+  --sumi:#23201c;
+  --usuzumi:#7a736b;
+  --keisen:#d8d0bd;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none !important}
+body{
+  background:var(--ai);
+  color:var(--sumi);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+  font-size:15px;
+  line-height:1.75;
+  padding:0 0 64px;
+  -webkit-text-size-adjust:100%;
+}
+.noren{
+  background:var(--ai);
+  color:var(--kami);
+  padding:34px 22px 30px;
+  text-align:center;
+}
+.noren h1{
+  font-size:32px;
+  font-weight:400;
+  letter-spacing:0;
+  line-height:1.4;
+  white-space:nowrap;
+}
+.rogo{
+  display:block;
+  width:150px;
+  height:150px;
+  margin:0 auto;
+  border-radius:50%;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+.noren p{
+  margin-top:22px;
+  font-size:13px;
+  color:#a9bdd1;
+  letter-spacing:.06em;
+}
+.maki{
+  max-width:640px;
+  margin:0 auto;
+  padding:0 14px;
+}
+.dan{
+  background:var(--kami);
+  border-radius:3px;
+  margin-top:14px;
+  padding:22px 18px 24px;
+}
+.dan > h2{
+  font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  font-size:19px;
+  font-weight:600;
+  letter-spacing:.08em;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  padding-bottom:11px;
+  border-bottom:1px solid var(--keisen);
+  margin-bottom:12px;
+}
+.dan > h2 + label{margin-top:2px}
+.kazu{
+  color:var(--shu);
+  font-size:15px;
+  border:1px solid var(--shu);
+  border-radius:50%;
+  width:26px;
+  height:26px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 26px;
+  align-self:center;
+}
+label{
+  display:block;
+  font-size:12.5px;
+  color:var(--usuzumi);
+  margin:14px 0 5px;
+  letter-spacing:.04em;
+}
+input[type=text],input[type=number],input[type=date],input[type=url],input[type=time],input[type=tel],select{
+  width:100%;
+  font:inherit;
+  font-size:16px;
+  padding:9px 11px;
+  border:1px solid var(--keisen);
+  border-radius:2px;
+  background:#fff;
+  color:var(--sumi);
+}
+::placeholder{color:#c3bbac;opacity:1}
+input.memoiri::placeholder{color:#cfc8ba}
+input:focus,select:focus,button:focus-visible{
+  outline:2px solid var(--ai);
+  outline-offset:1px;
+}
+.futatsu{display:flex;gap:10px}
+.futatsu > div{flex:1}
+button{
+  font:inherit;
+  cursor:pointer;
+  border-radius:2px;
+  border:1px solid var(--ai);
+  background:var(--ai);
+  color:var(--kami);
+  padding:9px 16px;
+  letter-spacing:.05em;
+}
+button.usu{
+  background:transparent;
+  color:var(--ai);
+}
+button.chiisai{
+  padding:5px 7px;
+  font-size:11.5px;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+button:active{transform:translateY(1px)}
+
+.hidume{
+  list-style:none;
+  margin-top:14px;
+}
+.hidume li{
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  gap:5px;
+  padding:9px 0;
+  border-bottom:1px dotted var(--keisen);
+  font-size:14.5px;
+}
+.yaku{
+  flex:0 0 auto;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:11px;
+  color:var(--shu);
+  border:1px solid var(--shu);
+  border-radius:2px;
+  padding:1px 3px;
+  line-height:1.5;
+  letter-spacing:0;
+}
+.yaku.pre{
+  border:none;
+  padding:0;
+  font-size:15px;
+  line-height:1;
+}
+.yakuran{
+  display:flex;
+  gap:10px;
+  margin-top:4px;
+}
+.yakuran > div{flex:1;min-width:0}
+.negaiBotan{width:100%;margin-top:7px}
+.watasuGyou{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:7px;
+}
+.watasuGyou select{flex:1;min-width:0}
+
+.hitoname{
+  flex:0 0 auto;
+  max-width:6em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-weight:600;
+}
+input.memoiri{
+  flex:1 1 0;
+  min-width:0;
+  margin:0 0 0 3px;
+  width:auto;
+  border:none;
+  border-bottom:1px dotted var(--keisen);
+  border-radius:0;
+  background:transparent;
+  font-size:14px;
+  padding:4px 1px;
+  color:var(--usuzumi);
+}
+input.memoiri:focus{
+  outline:none;
+  border-bottom:1px solid var(--ai);
+  color:var(--sumi);
+}
+.goukei{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  align-items:center;
+  border-top:2px solid var(--sumi);
+  margin-top:6px;
+  padding:12px 4px 0;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:17px;
+}
+.goukei > span{line-height:1}
+.goukei b{
+  display:inline-flex;
+  align-items:baseline;
+  font-weight:600;
+  font-size:34px;
+  line-height:1;
+  color:var(--shu);
+}
+.goukei b em{font-style:normal;font-size:15px;color:var(--sumi);margin-left:4px}
+
+.bangou{
+  flex:0 0 15px;
+  text-align:right;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:17px;
+  color:var(--shu);
+  letter-spacing:0;
+  line-height:1;
+}
+
+.hidume select{
+  width:auto;
+  flex:0 0 auto;
+  font-size:12px;
+  padding:4px 5px;
+  max-width:46%;
+}
+.hidume li.kouhogyou{
+  flex-wrap:wrap;
+  gap:6px;
+}
+.hidume li.kouhogyou > span{flex:1 0 100%;font-weight:600}
+
+.kara{
+  color:var(--usuzumi);
+  font-size:13.5px;
+  padding:18px 0 6px;
+  text-align:center;
+  line-height:1.9;
+}
+
+/* 会費の帳面 */
+.chouba{
+  margin-top:18px;
+  border-top:2px solid var(--sumi);
+}
+.gyou{
+  padding:7px 4px;
+  border-bottom:1px solid var(--keisen);
+}
+.gyouUe{
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  gap:9px;
+}
+.kugiri{
+  border:none;
+  border-top:1px solid var(--keisen);
+  margin:20px 0 16px;
+}
+.komidashi{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:17px;
+  font-weight:600;
+  letter-spacing:.08em;
+}
+#goukeiChuui{
+  text-align:center;
+  text-indent:0;
+  padding-left:0;
+  margin-top:6px;
+}
+input.kanpaIri{
+  flex:0 0 92px;
+  width:92px;
+  font-size:14px;
+  padding:5px 7px;
+}
+.narabe{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:12px;
+}
+.narabe label{margin:0;white-space:nowrap}
+.narabe select{width:auto;flex:0 1 auto;font-size:14px;padding:6px 9px}
+.hanko{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:18px;
+  border:2px dashed var(--keisen);
+  color:#c9c2b2;
+  background:none;
+  padding:0;
+  letter-spacing:0;
+}
+.hanko.sumi{
+  border:2px solid var(--shu);
+  border-style:solid;
+  color:var(--shu);
+}
+.hanko.sumi.pon{
+  animation:pon .28s cubic-bezier(.2,1.6,.4,1);
+}
+@keyframes pon{
+  0%{transform:scale(1.5) rotate(-14deg);opacity:.2}
+  100%{transform:scale(1) rotate(-7deg);opacity:1}
+}
+.hanko.sumi{transform:rotate(-7deg)}
+.namae{flex:1 1 auto;min-width:0}
+.gyouBotan{
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  margin-top:5px;
+}
+.gyouBotan button{min-width:5.6em;justify-content:center}
+.namae b{
+  display:block;
+  font-weight:600;
+  font-size:15px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.namae small{
+  display:block;
+  color:var(--usuzumi);
+  font-size:12px;
+}
+.kingaku{
+  flex:0 0 auto;
+  min-width:3.5em;
+  text-align:right;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:17px;
+  white-space:nowrap;
+}
+.badge{
+  display:inline-block;
+  flex:0 0 auto;
+  margin-right:-5px;
+  font-size:10.5px;
+  color:var(--shu);
+  border:1px solid var(--shu);
+  border-radius:2px;
+  padding:1px 5px;
+  margin-left:0;
+  letter-spacing:.04em;
+  vertical-align:1px;
+}
+.shimekiri{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 4px 0;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:16px;
+}
+.sashigae{
+  white-space:pre-line;
+  color:var(--usuzumi);
+  font-size:13px;
+  font-family:inherit;
+  padding:8px 4px 0;
+  text-align:right;
+}
+
+.warikan{
+  background:var(--kami-kage);
+  border-radius:2px;
+  padding:14px 16px;
+  margin-top:16px;
+  text-align:center;
+}
+.warikan .oomoji{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:34px;
+  line-height:1.2;
+  display:block;
+}
+.warikan small{color:var(--usuzumi);font-size:12.5px}
+.hasuu{
+  display:block;
+  white-space:pre-line;
+  margin-top:10px;
+  padding-top:9px;
+  border-top:1px solid #ded5c0;
+  font-size:12.5px;
+  color:var(--usuzumi);
+  line-height:1.8;
+  text-align:left;
+}
+
+.toggle{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:16px;
+  font-size:13.5px;
+  cursor:pointer;
+}
+.toggle input{width:18px;height:18px;accent-color:var(--ai);flex:0 0 18px}
+
+.kotobabako{
+  margin-top:18px;
+  padding:12px 14px;
+  background:var(--kami-kage);
+  border-left:3px solid var(--shu);
+}
+.kotobabako small{
+  display:block;
+  font-size:11.5px;
+  color:var(--usuzumi);
+  letter-spacing:.06em;
+}
+.kotobabako p{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:17px;
+  line-height:1.6;
+  margin-top:3px;
+  word-break:break-word;
+}
+.botantachi{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+.botantachi button{flex:1;min-width:96px;padding:11px 6px;font-size:13.5px}
+
+.setsumei{
+  font-size:12.5px;
+  color:var(--usuzumi);
+  line-height:1.85;
+  margin:3px 0 8px;
+  text-align:left;
+}
+.chuui{
+  font-size:12.5px;
+  color:var(--usuzumi);
+  margin-top:8px;
+  padding-left:1em;
+  text-indent:-1em;
+}
+
+.shinjin{
+  background:var(--ai-fuka);
+  color:#dfe7ee;
+  border-radius:3px;
+  margin-top:14px;
+  padding:24px 20px 26px;
+}
+.shinjin h2{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:18px;
+  letter-spacing:.1em;
+  color:var(--kami);
+  font-weight:600;
+  margin-bottom:14px;
+}
+.maegaki{
+  font-size:13px;
+  color:#a6b8c7;
+  line-height:1.9;
+  margin-bottom:6px;
+}
+.shinjin dt{
+  font-weight:600;
+  color:#fff;
+  margin-top:16px;
+  font-size:14.5px;
+}
+.shinjin dd{font-size:13.5px;color:#b9c8d6;line-height:1.85}
+.shinjin .musubi{
+  margin-top:22px;
+  padding-top:16px;
+  border-top:1px solid #24425f;
+  font-size:13px;
+  color:#8fa6bb;
+}
+.mono{
+  display:flex;
+  gap:8px;
+  align-items:flex-end;
+  margin-top:4px;
+}
+.mono > div:first-child{flex:2}
+.mono > div:nth-child(2){flex:1}
+.kamiBako{
+  position:fixed;
+  inset:0;
+  background:rgba(14,32,53,.975);
+  z-index:70;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:16px 13px 40px;
+  overflow-y:auto;
+}
+.kamiBotan{
+  display:flex;
+  gap:9px;
+  margin-bottom:14px;
+  flex:0 0 auto;
+}
+#chirashi{
+  background:#fff;
+  color:#000;
+  width:100%;
+  max-width:460px;
+  padding:30px 26px 34px;
+  border-radius:2px;
+  box-shadow:0 6px 26px rgba(0,0,0,.45);
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+}
+#chirashi h1{
+  font-size:25px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-align:center;
+  border-bottom:3px double #000;
+  padding-bottom:14px;
+  margin-bottom:22px;
+}
+#chirashi dl{font-size:15px;line-height:2.1}
+#chirashi dt{float:left;width:5em;font-weight:600}
+#chirashi dd{margin-left:5.5em;border-bottom:1px dotted #999;margin-bottom:8px}
+#chirashi .kakomi{
+  margin-top:24px;
+  font-size:12.5px;
+  line-height:1.95;
+  border:1px solid #000;
+  padding:13px;
+  word-break:break-all;
+}
+#chirashi .sain{margin-top:20px;text-align:right;font-size:12.5px}
+@media print{
+  .noren,.maki,.rou{display:none !important}
+  .kamiBotan{display:none !important}
+  .kamiBako{
+    position:static;
+    display:block;
+    background:none;
+    padding:0;
+    overflow:visible;
+  }
+  #chirashi{
+    max-width:none;
+    box-shadow:none;
+    border-radius:0;
+    padding:0;
+  }
+  #chirashi h1{font-size:28pt;padding-bottom:12pt;margin-bottom:24pt}
+  #chirashi dl{font-size:14pt}
+  #chirashi dd{margin-bottom:7pt}
+  #chirashi .kakomi{font-size:11pt;padding:12pt;margin-top:26pt}
+  #chirashi .sain{font-size:11pt}
+  body{background:#fff;color:#000;padding:0}
+  @page{size:A4;margin:18mm}
+}
+
+.yosomi{
+  margin-top:18px;
+  padding:15px 16px;
+  background:var(--kami-kage);
+  border-radius:2px;
+}
+.yosomi h3{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.06em;
+  margin-bottom:7px;
+}
+.yosomi p{font-size:13px;color:var(--usuzumi);line-height:1.9}
+.yosomi .botantachi{margin-top:11px}
+
+.niji{
+  width:100%;
+  padding:18px 12px;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:19px;
+  letter-spacing:.28em;
+  text-indent:.28em;
+  background:transparent;
+  color:var(--kami);
+  border:2px solid #3b5f80;
+  border-radius:3px;
+}
+.nijiHitobito{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  margin:14px 0 4px;
+}
+.nijiHito{
+  padding:11px 15px;
+  font-size:15px;
+  border:1px solid #4a6b88;
+  border-radius:3px;
+  background:transparent;
+  color:#b9c8d6;
+}
+.nijiHito.iku{
+  background:var(--shu);
+  border-color:var(--shu);
+  color:#fff;
+}
+.nijiLabel{
+  display:block;
+  text-align:left;
+  color:#8fa6bb;
+  font-size:12.5px;
+  margin:18px 0 5px;
+}
+input.nijiIri::placeholder{color:#3f6183}
+.nijiSagasu{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:14px;
+}
+.nijiSagasu button{
+  flex:1 1 44%;
+  padding:15px 8px;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:16px;
+  letter-spacing:.14em;
+  background:var(--shu);
+  border-color:var(--shu);
+  color:#fff;
+  border-radius:3px;
+}
+input.nijiIri{
+  width:100%;
+  font-size:20px;
+  padding:12px;
+  text-align:center;
+  background:#0b1b2c;
+  border:1px solid #4a6b88;
+  color:var(--kami);
+}
+.nijiToggle{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:14px;
+  font-size:13.5px;
+  color:#b9c8d6;
+  text-align:left;
+}
+.nijiToggle input{width:19px;height:19px;flex:0 0 19px;accent-color:var(--shu)}
+.nijiKotae{
+  margin-top:20px;
+  padding:16px;
+  border-top:1px solid #2a4864;
+  border-bottom:1px solid #2a4864;
+}
+.nijiKotae b{
+  display:block;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:40px;
+  line-height:1.2;
+  color:var(--kami);
+  font-weight:600;
+}
+.nijiKotae small{color:#8fa6bb;font-size:12.5px}
+.nijiShuuden{
+  margin-top:18px;
+  padding:11px 14px;
+  border:1px solid var(--shu);
+  border-radius:3px;
+  font-size:13px;
+  color:#dfe7ee;
+  letter-spacing:.04em;
+}
+.nijiShuuden b{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:18px;
+  color:#ff8d84;
+  margin-left:6px;
+}
+.nijiShuuden.kara{
+  border:none;
+  padding:0;
+  margin-top:16px;
+}
+.denBotan{
+  width:100%;
+  padding:14px 10px;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:16px;
+  letter-spacing:.14em;
+  background:transparent;
+  color:#ff8d84;
+  border:1px solid var(--shu);
+  border-radius:3px;
+}
+.mikata dl{text-align:left;font-size:14px;line-height:1.9}
+.mikata dt{
+  color:#8fa6bb;
+  font-size:12px;
+  margin-top:13px;
+  letter-spacing:.06em;
+}
+.mikata dd{color:#dfe7ee;border-bottom:1px dotted #2f4f6d;padding-bottom:5px}
+.mikata .midashi2{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:16px;
+  color:var(--kami);
+  margin-top:22px;
+  padding-bottom:6px;
+  border-bottom:1px solid #2f4f6d;
+  text-align:left;
+}
+.kirokuBotan{
+  flex:1;
+  text-align:left;
+  background:transparent;
+  border:none;
+  color:var(--sumi);
+  font-size:14.5px;
+  padding:4px 0;
+}
+.kirokuBotan b{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-weight:600;
+}
+.kirokuBotan small{display:block;color:var(--usuzumi);font-size:12px}
+.nijiBotan{
+  display:flex;
+  gap:9px;
+  margin-top:22px;
+}
+.nijiBotan button{flex:1;margin-top:0}
+.ninmu{
+  width:100%;
+  padding:24px 12px;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:23px;
+  letter-spacing:.34em;
+  text-indent:.34em;
+  background:var(--shu);
+  border-color:var(--shu);
+  color:var(--kami);
+  border-radius:3px;
+}
+.ninmu:disabled{
+  background:transparent;
+  color:#6c8aa6;
+  border:2px dashed #35536f;
+  cursor:not-allowed;
+}
+.ninmuChuui{
+  text-align:center;
+  font-size:12.5px;
+  color:#8fa6bb;
+  margin-top:10px;
+  line-height:1.8;
+}
+.rou{
+  position:fixed;
+  inset:0;
+  background:rgba(14,32,53,.975);
+  z-index:60;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:24px 20px 44px;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.rouNaka{
+  max-width:420px;
+  margin:auto;
+  text-align:center;
+  color:#dfe7ee;
+}
+.rouNaka h3{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:.14em;
+  color:var(--kami);
+  margin:18px 0 14px;
+}
+.rouNaka p{
+  font-size:14.5px;
+  line-height:2;
+  color:#b9c8d6;
+  white-space:pre-line;
+  text-align:left;
+}
+.rouNaka button{margin-top:22px}
+#mojiNaka{
+  width:100%;
+  font:inherit;
+  font-size:14px;
+  line-height:1.8;
+  padding:12px;
+  border:1px solid #4a6b88;
+  border-radius:3px;
+  background:#0b1b2c;
+  color:#dfe7ee;
+  resize:vertical;
+}
+.hanamaru{width:150px;height:150px}
+.hanamaru circle,.hanamaru path{
+  fill:none;
+  stroke:var(--shu);
+  stroke-width:4;
+  stroke-linecap:round;
+}
+.hanamaru .wa{
+  stroke-dasharray:500;
+  stroke-dashoffset:500;
+  animation:maru 1s ease-out .15s forwards;
+}
+.hanamaru .hana{
+  opacity:0;
+  transform-origin:100px 100px;
+  animation:saku .5s cubic-bezier(.2,1.5,.4,1) forwards;
+}
+@keyframes maru{to{stroke-dashoffset:0}}
+@keyframes saku{
+  from{opacity:0;transform:scale(.2)}
+  to{opacity:1;transform:scale(1)}
+}
+@media (prefers-reduced-motion:reduce){
+  .hanamaru .wa{animation:none;stroke-dashoffset:0}
+  .hanamaru .hana{animation:none;opacity:1}
+}
+
+.shuudenFuda{
+  position:fixed;
+  left:50%;
+  bottom:12px;
+  transform:translateX(-50%);
+  background:var(--kami);
+  color:var(--sumi);
+  border:1px solid var(--shu);
+  border-radius:3px;
+  padding:7px 15px;
+  font-size:13px;
+  letter-spacing:.06em;
+  box-shadow:0 3px 12px rgba(0,0,0,.28);
+  cursor:pointer;
+  z-index:20;
+  white-space:nowrap;
+}
+.shuudenFuda b{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:16px;
+  color:var(--shu);
+  margin-left:5px;
+}
+.ashi{
+  text-align:center;
+  color:#6c8aa6;
+  font-size:11.5px;
+  padding:26px 16px 0;
+  line-height:2;
+}
+@media (prefers-reduced-motion:reduce){
+  .hanko.sumi{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="noren">
+  <h1><img class="rogo" src="data:image/jpeg;base64,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" alt="dear幹事"></h1>
+  <p>〈ディア幹〉幹事のあなたへ、ギルドを。</p>
+</header>
+
+<div class="maki">
+
+  <section class="dan">
+    <h2><span class="kazu">一</span>会のこと</h2>
+    <label for="kaisuu">幹事は何回目ですか</label>
+    <select id="kaisuu">
+      <option value="0">はじめてです</option>
+      <option value="1">2〜3回目</option>
+      <option value="2">何回もやっています</option>
+      <option value="3">もう数えていません</option>
+    </select>
+    <label for="kaimei">会の名前</label>
+    <input type="text" id="kaimei" placeholder="例：新人歓迎会">
+    <div class="futatsu">
+      <div>
+        <label for="hi">日にち</label>
+        <input type="date" id="hi">
+      </div>
+      <div>
+        <label for="eki">集まる駅</label>
+        <input type="text" id="eki" placeholder="例：大宮">
+      </div>
+    </div>
+    <div class="futatsu">
+      <div>
+        <label for="hajime">始まり</label>
+        <input type="time" id="hajime">
+      </div>
+      <div>
+        <label for="owari">お開き</label>
+        <input type="time" id="owari">
+      </div>
+    </div>
+    <label for="shuuden">終電（メモ）</label>
+    <div class="futatsu">
+      <div style="flex:2">
+        <input type="text" id="shuuden" placeholder="例：23:47 大宮発 上り">
+      </div>
+      <div style="flex:0 0 auto;display:flex;align-items:flex-end">
+        <button type="button" class="usu" id="shuudenShiraberu">調べる</button>
+      </div>
+    </div>
+    <p class="chuui">※ 終電は自動では出せません。「調べる」で開いた先から書き写してください。<br>日にちを入れておくと、その「曜日」で調べることができます。</p>
+    <p class="chuui">※ ここに書いておくと、「さくっと二次会」の画面にも出ます。二次会ボタンはいちばん下にあります。</p>
+
+    <label for="mise">お店（決まっていれば）</label>
+    <input type="text" id="mise" placeholder="例：居酒屋 まんまる 大宮東口店">
+    <label for="juusho">お店の住所</label>
+    <input type="text" id="juusho" placeholder="例：さいたま市大宮区○○町1-2-3 2階">
+    <label for="denwa">お店の電話番号</label>
+    <input type="tel" id="denwa" placeholder="例：048-000-0000">
+
+    <div class="yosomi">
+      <h3>日にちが、まだ決まっていないなら</h3>
+      <p>全員の都合を並べて○×をつけてもらう作業は、【調整さん】という他社アプリのほうがずっと得意です。<br>【調整さん】、【LINEスケジュール】、【伝助】あたりが有名どころ。<br>決まったら、上の日にちを入力して始まりです。ここで待っていますね。</p>
+      <div class="botantachi">
+        <button type="button" class="usu" id="chousei">調整さんを開く</button>
+        <button type="button" class="usu" id="chouseiHoka">ほかの道具を探す</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="dan">
+    <h2><span class="kazu">二</span>お店をさがす</h2>
+    <div class="futatsu">
+      <div>
+        <label for="ninzu">人数の目安</label>
+        <input type="text" id="ninzu" placeholder="例：20" inputmode="numeric">
+      </div>
+      <div>
+        <label for="yosan">ひとり予算</label>
+        <select id="yosan">
+          <option value="">こだわらない</option>
+          <option value="3000円">3000円くらい</option>
+          <option value="4000円">4000円くらい</option>
+          <option value="5000円">5000円くらい</option>
+          <option value="6000円以上">6000円以上</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="keitou">食べものの系統</label>
+    <select id="keitou">
+      <option value="居酒屋">居酒屋（迷ったらこれ）</option>
+      <option value="">こだわらない</option>
+      <option value="和食">和食</option>
+      <option value="焼肉">焼肉</option>
+      <option value="イタリアン">イタリアン</option>
+      <option value="中華">中華</option>
+      <option value="海鮮">海鮮</option>
+      <option value="鍋">鍋</option>
+      <option value="ダイニングバー">ダイニングバー</option>
+    </select>
+
+    <label class="toggle" for="koshitsu">
+      <input type="checkbox" id="koshitsu" checked>
+      <span>個室がいい</span>
+    </label>
+    <label class="toggle" for="nomihou">
+      <input type="checkbox" id="nomihou" checked>
+      <span>飲み放題つき</span>
+    </label>
+    <label class="toggle" for="kinen">
+      <input type="checkbox" id="kinen">
+      <span>禁煙のお店</span>
+    </label>
+
+    <div class="kotobabako">
+      <small>探す言葉</small>
+      <p id="kotoba">駅を入れると、ここに言葉ができます</p>
+    </div>
+
+    <div class="botantachi">
+      <button type="button" id="hpg">ホットペッパー</button>
+      <button type="button" class="usu" id="tbl">食べログ</button>
+      <button type="button" class="usu" id="chizu">地図</button>
+    </div>
+    <p class="chuui">※ 試作版では検索サイトを開くところまでです。「空いている日時のお店だけ」の絞り込みは宿題のままにしてあります。</p>
+
+    <label for="kouho" style="margin-top:20px">気になったお店をメモ保存</label>
+    <p class="setsumei">控えるボタンを押すと、気になったお店がどんどん追加されていきます🥳</p>
+    <div class="futatsu">
+      <div style="flex:2">
+        <input type="text" id="kouho" placeholder="例：居酒屋まんまる 大宮東口店">
+      </div>
+      <div style="flex:0 0 auto;display:flex;align-items:flex-end">
+        <button type="button" id="kouhoTsuika">控える</button>
+      </div>
+    </div>
+    <ul class="hidume" id="kouhoIchiran"></ul>
+    <p class="chuui">※ これは「あなたが探した結果」の記録です。見つからなくても、そのお店が電話専用と決まったわけではありません。決めつけずに残しておいてください。</p>
+  </section>
+
+  <section class="dan">
+    <h2><span class="kazu">三</span>参加する人</h2>
+    <div class="futatsu">
+      <div style="flex:2">
+        <label for="namae">お名前</label>
+        <input type="text" id="namae" placeholder="例：田中さん">
+      </div>
+      <div style="flex:0 0 auto;display:flex;align-items:flex-end">
+        <button type="button" id="tsuika">加える</button>
+      </div>
+    </div>
+    <ul class="hidume" id="ichiran"></ul>
+    <div class="goukei" id="goukei" hidden>
+      <span>お店に伝える人数</span>
+      <b><span id="goukeiNin">0</span><em>名</em></b>
+    </div>
+    <p class="chuui" id="goukeiChuui" hidden>※ 幹事さんご自身は、この中に入っていますか？</p>
+
+    <div id="yakuBako" hidden>
+      <div class="yakuran">
+        <div>
+          <label for="yakuKanpai">乾杯の担当</label>
+          <select id="yakuKanpai"></select>
+          <button type="button" class="usu chiisai negaiBotan" id="negaiKanpai" hidden>お願い文をコピー</button>
+        </div>
+        <div>
+          <label for="yakuShime">最後の締め担当</label>
+          <select id="yakuShime"></select>
+          <button type="button" class="usu chiisai negaiBotan" id="negaiShime" hidden>お願い文をコピー</button>
+        </div>
+      </div>
+      <p class="chuui">※ 当日いきなり振ると相手が困ります。決めたら、前もってひと言お願いしておいてください。</p>
+    </div>
+    <p class="kara" id="karahyouji">まだどなたもいません。<br>幹事はいつも、最初のひとりです。</p>
+  </section>
+
+  <section class="dan">
+    <h2><span class="kazu">四</span>会費を決める</h2>
+    <label for="keisanMode">計算のしかた</label>
+    <select id="keisanMode">
+      <option value="kai">会費から決める（ひとりいくら）</option>
+      <option value="sou">お店の総額から割る</option>
+    </select>
+
+    <div class="futatsu">
+      <div>
+        <label for="soutaku"><span id="soutakuLabel">ひとりの会費（円）</span></label>
+        <input type="text" id="soutaku" placeholder="例：5000" inputmode="numeric">
+      </div>
+      <div>
+        <label for="tanni">きりのよさ</label>
+        <select id="tanni">
+          <option value="100">100円単位</option>
+          <option value="500">500円単位</option>
+          <option value="1000">1000円単位</option>
+          <option value="1">1円単位（きっちり）</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="monoNa">みんなで出すもの（プレゼント代など）</label>
+    <div class="mono">
+      <div><input type="text" id="monoNa" placeholder="例：お花代"></div>
+      <div><input type="text" id="monoGaku" placeholder="例：5000" inputmode="numeric"></div>
+      <div style="flex:0 0 auto"><button type="button" id="monoTsuika">足す</button></div>
+    </div>
+    <ul class="hidume" id="monoIchiran"></ul>
+    <div id="watasuRan" hidden>
+      <label>渡す担当</label>
+      <div id="watasuNaka"></div>
+      <p class="setsumei">ひとり選ぶと、次の欄が出ます。複数でも大丈夫です。</p>
+    </div>
+
+    <label class="toggle" for="appdai">
+      <input type="checkbox" id="appdai">
+      <span>アプリ購入代【500円】を会費に含める（こっそり割り勘）</span>
+    </label>
+
+    <label class="toggle" for="daikou">
+      <input type="checkbox" id="daikou">
+      <span>幹事代行費を上乗せする</span>
+    </label>
+    <div id="daikouran" hidden>
+      <label for="daikougaku">上乗せする額（円）</label>
+      <input type="text" id="daikougaku" value="0" inputmode="numeric">
+      <p class="chuui">※ 上乗せは、事前にみんなへ一言伝えてからにしてください。黙って乗せると、お金より大事なものが減ります。</p>
+      <label class="toggle" for="kanjiMochi">
+        <input type="checkbox" id="kanjiMochi">
+        <span>幹事の分は、みんなに払ってもらう</span>
+      </label>
+      <div id="kanjiRan" hidden>
+        <label for="kanjiDare">幹事（あなた）はどなたですか</label>
+        <select id="kanjiDare"></select>
+        <p class="chuui" id="kanjiChuui"></p>
+      </div>
+    </div>
+
+    <label class="toggle" for="kanpa">
+      <input type="checkbox" id="kanpa" checked>
+      <span>カンパを受け付ける（多めに出してくれた人を、みんなに表示）</span>
+    </label>
+
+    <div class="warikan">
+      <span class="oomoji" id="hitori">—</span>
+      <small id="hitoriShousai">ひとりあたりの会費</small>
+      <small class="hasuu" id="hasuu" hidden></small>
+    </div>
+
+    <div id="amariran" hidden>
+      <label for="amarisaki">余った分のゆくえ</label>
+      <select id="amarisaki">
+        <option value="">まだ未定</option>
+        <option value="お店で最後のもう一杯に使わせてもらいます">最後のもう一杯にする</option>
+        <option value="二次会の足しにさせてもらいます">二次会の足しにする</option>
+        <option value="次の会に繰り越します">次の会に繰り越す</option>
+        <option value="会の終わりに、みんなへお返しします">みんなに返す</option>
+        <option value="__jiyuu">自分で書く</option>
+      </select>
+      <input type="text" id="amariJiyuu" placeholder="例：はずれなしのくじの景品を買います" hidden>
+      <p class="chuui" id="amariWari"></p>
+      <p class="chuui" id="amariBun"></p>
+    </div>
+  </section>
+
+  <section class="dan">
+    <h2><span class="kazu">五</span>集金する</h2>
+    <label for="payurl">あなたの送金リンク（PayPayなど）</label>
+    <input type="url" id="payurl" placeholder="https://pay.example/...">
+    <p class="chuui">※ このアプリはお金を預かりません。参加者はあなたに直接送ります。</p>
+    <hr class="kugiri">
+
+    <h3 class="komidashi">集金の帳面</h3>
+    <p class="setsumei">会費をいただいたら、名前の左の丸を押してください。朱色の「済」が押されます。<br>まだの人の「そっと一声」を押すと、やわらかい催促の文がコピーされます。LINEなどに貼って送ってください。</p>
+
+    <div class="narabe">
+      <label for="narabeKae">並び順</label>
+      <select id="narabeKae">
+        <option value="meibo">名簿の順</option>
+        <option value="mada">まだの人が先</option>
+        <option value="kanpa">多くいただいた方が先</option>
+      </select>
+    </div>
+    <div class="chouba" id="chouba"></div>
+    <div class="shimekiri">
+      <span>集まった額</span>
+      <span id="atsumari">0 円</span>
+    </div>
+    <p class="sashigae" id="sashigae"></p>
+
+    <div style="margin-top:20px;display:flex;gap:9px;flex-wrap:wrap">
+      <button type="button" class="usu" id="sasoibun">お誘い文をコピー</button>
+      <button type="button" class="usu" id="hikaeru">帳面をコピー</button>
+      <button type="button" id="chirashiBotan">チラシを作る（A4）</button>
+    </div>
+    <p class="chuui">※ 入力した内容は、この端末に自動で保存されます。<button type="button" class="usu chiisai" id="kesu" style="margin-left:6px">保存を消す</button></p>
+  </section>
+
+  <section class="dan" id="kirokuDan" hidden>
+    <h2><span class="kazu">記</span>これまでの会</h2>
+    <ul class="hidume" id="kirokuIchiran"></ul>
+  </section>
+
+  <section class="shinjin">
+    <h2>幹事初心者のかたへ</h2>
+    <p class="maegaki">はじめての幹事は、たいてい気が重いものです。でも、やってみると案外おもしろい役です。せっかくなので、あなたも楽しんでください。</p>
+    <dl>
+      <dt>お店を決める前に、聞いておくこと</dt>
+      <dd>食べられないもの、お酒を飲むか飲まないか。この二つだけ先に聞いておくと、当日あわてません。人数の多い会なら、飲まない人の会費を少し下げるだけで、その人は驚くほど安心します。</dd>
+
+      <dt>お店には「幹事です」と伝える</dt>
+      <dd>予約のとき自分の名前と連絡先を伝えておくと、当日の連絡がすべてあなたに来ます。人数の変更はいつまで可能か、それも一緒に聞いておくと後で助かります。</dd>
+
+      <dt>会費は、始まる前に伝える</dt>
+      <dd>金額があとから分かるのが、いちばん気まずいのです。おおよそでいいので先に伝えておくと、みんなが安心して飲めます。</dd>
+
+      <dt>お金の話は、明るいうちに</dt>
+      <dd>集金は乾杯の前か、会が終わってすぐが向いています。お酒がまわった時間に始めると、数が合いません。</dd>
+
+      <dt>多めに出してくれた人は、必ずみんなに伝える</dt>
+      <dd>会費より多く払ってくれる人が、たいていひとりはいます。黙っていると、その人は誰にも知られないまま帰ることになります。「〇〇さんが多めに出してくださいました」のひと言があるだけで、その場の空気がやわらぎます。言いそびれたら、後からでもかまいません。伝えるのは幹事にしかできない仕事です。</dd>
+
+      <dt>ひとりきりで抱えない</dt>
+      <dd>受付を誰かに頼む、写真を誰かに頼む。頼まれた側は、案外うれしいものです。</dd>
+
+      <dt>最後に</dt>
+      <dd>幹事をやると、必ず何かひとつはうまくいきません。それでも会は成立します。お店を決めて、人を集めた時点で、もう仕事の大半は終わっています。</dd>
+    </dl>
+    <p class="musubi">この会が終わったころには、あなたは「玄人幹事」と呼ばれています。</p>
+  </section>
+
+  <section class="shinjin">
+    <h2>幹事のしきたり</h2>
+    <p class="maegaki">昔から言われてきたことの覚え書きです。参考までに、くらいで読んでください。今の職場に合うとは限りませんし、気にしない人も増えました。知ったうえで選ばないのと、知らないのとは違う、というだけの話です。</p>
+    <dl>
+      <dt>幹事は、角の席へ</dt>
+      <dd>入口にいちばん近い角が、いちばん動きやすい席です。追加の注文も、遅れてきた人の案内も、お会計も、そこからが早い。いい席を譲るというより、働きやすい場所を取ると考えてください。</dd>
+
+      <dt>奥が上座、入口が下座</dt>
+      <dd>入口から遠いほど、よい席とされてきました。目上の方には奥へ座っていただくのが無難です。とはいえ、眺めのいい席や話しやすい位置が優先されることもあります。迷ったら「こちらへどうぞ」と先に声をかける。それで充分です。</dd>
+
+      <dt>乾杯と締めは、先に頼んでおく</dt>
+      <dd>当日いきなり振られるのは、誰だって困ります。「乾杯のひと言をお願いできますか」と前もって伝えておくと、頼まれたほうも心の準備ができます。</dd>
+
+      <dt>最初の一杯だけ、揃える</dt>
+      <dd>ひとりずつ違う飲み物にすると、全員に行き渡るまで乾杯できません。最初だけ揃えると早い。二杯目からはご自由に。</dd>
+
+      <dt>お会計は、中座して先に</dt>
+      <dd>お開きの少し前にそっと席を立って済ませておくと、みんなが出口で立ち往生しません。幹事がいちばん格好よく見える瞬間でもあります。</dd>
+
+      <dt>帰りぎわに、お店へひと言</dt>
+      <dd>「ごちそうさまでした、また来ます」と言って出ると、次に予約するとき扱いが少し変わります。ずるい話ですが、本当です。</dd>
+    </dl>
+    <p class="musubi">しきたりは、守るためではなく、誰かが気まずくならないために残ってきたものです。目的のほうを覚えておけば、形は変えてかまいません。</p>
+  </section>
+
+  <div style="margin-top:14px">
+    <button type="button" class="niji" id="nijiHiraku">さくっと二次会</button>
+  </div>
+
+  <div style="margin-top:14px">
+    <button type="button" class="ninmu" id="ninmu" disabled>任務完了</button>
+    <p class="ninmuChuui" id="ninmuChuui">会が終わり、みんなの会費が集まるまで押せません。</p>
+  </div>
+
+  <p class="ashi">
+    試作版 ／ 入力した内容は、この端末に保存されます<br>
+    &copy; aurorapolis
+  </p>
+</div>
+
+<div class="rou" id="rou" hidden>
+  <div class="rouNaka">
+    <svg class="hanamaru" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="hana" cx="100" cy="70" r="24" style="animation-delay:.55s"></circle>
+      <circle class="hana" cx="126" cy="85" r="24" style="animation-delay:.63s"></circle>
+      <circle class="hana" cx="126" cy="115" r="24" style="animation-delay:.71s"></circle>
+      <circle class="hana" cx="100" cy="130" r="24" style="animation-delay:.79s"></circle>
+      <circle class="hana" cx="74" cy="115" r="24" style="animation-delay:.87s"></circle>
+      <circle class="hana" cx="74" cy="85" r="24" style="animation-delay:.95s"></circle>
+      <circle class="wa" cx="100" cy="100" r="79"></circle>
+    </svg>
+    <h3 id="rouMidashi">任務完了</h3>
+    <p id="rouBun"></p>
+    <button type="button" class="niji" id="rouKiroku" style="background:var(--shu);border-color:var(--shu);font-size:17px;margin-top:22px">この会を記録しておく</button>
+    <div class="nijiBotan">
+      <button type="button" id="rouTsugi" style="background:transparent;border-color:#4a6b88;color:#dfe7ee">新しい会をはじめる</button>
+      <button type="button" class="usu" id="rouTojiru" style="background:transparent;color:#dfe7ee;border-color:#4a6b88">とじる</button>
+    </div>
+    <p style="font-size:12px;color:#7f97ac;margin-top:12px;line-height:1.8">※「新しい会をはじめる」を押すと、この会の内容は残らずに消えます。</p>
+  </div>
+</div>
+
+<div class="rou" id="mojiBako" hidden>
+  <div class="rouNaka" style="width:100%;max-width:460px">
+    <h3>この文をお使いください</h3>
+    <textarea id="mojiNaka" rows="9" readonly></textarea>
+    <button type="button" class="usu" id="mojiTojiru" style="background:transparent;color:#dfe7ee;border-color:#4a6b88">とじる</button>
+  </div>
+</div>
+
+<div class="rou" id="mikataBako" hidden>
+  <div class="rouNaka" style="width:100%;max-width:460px">
+    <h3 id="mikataMidashi"></h3>
+    <div class="mikata" id="mikataNaka"></div>
+    <div class="nijiBotan">
+      <button type="button" class="usu" id="mikataTojiru" style="background:transparent;color:#dfe7ee;border-color:#4a6b88">とじる</button>
+      <button type="button" class="usu" id="mikataKesu" style="background:transparent;color:#ff8d84;border-color:var(--shu)">この記録を消す</button>
+    </div>
+  </div>
+</div>
+
+<div class="rou" id="nijiBako" hidden>
+  <div class="rouNaka" style="width:100%;max-width:440px">
+    <div class="nijiShuuden" id="nijiShuuden" style="margin:0 0 4px"></div>
+    <h3 id="nijiMidashi">さくっと二次会</h3>
+    <p id="nijiHitokoto" style="font-size:13px;color:#ff8d84;margin-bottom:4px" hidden></p>
+    <div class="nijiSagasu">
+      <button type="button" id="nijiMise">お店をさがす</button>
+      <button type="button" id="nijiKara">カラオケ</button>
+      <button type="button" id="nijiBar">バー</button>
+      <button type="button" id="nijiRamen">ラーメン</button>
+      <button type="button" id="nijiHotel" hidden>ホテル</button>
+      <button type="button" id="nijiManga" hidden>漫画喫茶</button>
+    </div>
+
+    <label class="nijiLabel" for="nijiNin" id="nijiNinLabel">割る人数（ちょくせつ入力でも、名前をえらぶでもOK）</label>
+    <input type="text" inputmode="numeric" class="nijiIri" id="nijiNin" placeholder="例：7">
+    <div class="nijiHitobito" id="nijiHitoRan"></div>
+
+    <label class="nijiLabel" for="nijiSou">お支払い総額（円）</label>
+    <input type="text" inputmode="numeric" class="nijiIri" id="nijiSou" placeholder="例：20000">
+
+    <label class="nijiToggle" id="nijiKuriRan" for="nijiKuri" hidden>
+      <input type="checkbox" id="nijiKuri">
+      <span>一次会の余り <b id="nijiAmari"></b> を足しにする</span>
+    </label>
+
+    <div class="nijiKotae">
+      <b id="nijiHitori">—</b>
+      <small id="nijiShousai">ひとりあたり</small>
+    </div>
+
+    <div class="nijiBotan">
+      <button type="button" id="nijiKanryou" style="background:var(--shu);border-color:var(--shu)">二次会完了</button>
+      <button type="button" class="usu" id="nijiTojiru" style="background:transparent;color:#dfe7ee;border-color:#4a6b88">とじる</button>
+    </div>
+
+    <button type="button" class="niji" id="sanjiHiraku" style="margin-top:12px;font-size:16px">三次会モード</button>
+  </div>
+</div>
+
+<div class="kamiBako" id="kamiBako" hidden>
+  <div class="kamiBotan">
+    <button type="button" id="chirashiInsatsu">印刷する</button>
+    <button type="button" class="usu" id="chirashiTojiru" style="background:transparent;color:#dfe7ee;border-color:#4a6b88">とじる</button>
+  </div>
+  <div id="chirashi"></div>
+</div>
+
+<script>
+(function(){
+  var hitobito = [];
+
+  var el = function(id){ return document.getElementById(id); };
+  var yen = function(n){ return Number(n||0).toLocaleString('ja-JP') + ' 円'; };
+
+  /* ---- 任務完了 ---- */
+  var negirai = [
+    {
+      midashi:'はじめての幹事、完了',
+      bun:'やりきりましたね。\n\n最初の一回が、いちばん重いのです。何を頼めばいいのかも、いつ集金すればいいのかも分からないまま、それでも今日の会は無事に終わりました。\n\nあなたはもう、次に誰かが初めて幹事になったとき、助けてあげられる側の人です。'
+    },
+    {
+      midashi:'二度目、三度目の幹事',
+      bun:'実は、ここがいちばんえらいところです。\n\n一度やって大変さを知ったのに、また引き受けた。知らずに引き受けるのと、知っていて引き受けるのは、まるで違います。\n\n世の中ではそういう人を、頼れる人と呼びます。'
+    },
+    {
+      midashi:'また、あなたでしたか',
+      bun:'気づけば毎回まわってくる。押しつけられているように感じる日もあるでしょう。\n\nでも、幹事は誰でもいいわけではありません。あなたなら安心だと思われている、ということです。\n\nそれはそれとして、たまには断ってもいいのですよ。'
+    },
+    {
+      midashi:'玄人幹事どの',
+      bun:'何度目かも覚えていない方に、こちらから申し上げることはもうありません。\n\nただ、今日もひとつの会が、誰も気まずい思いをせずに終わりました。それは当たり前ではなく、あなたが段取りをしたからです。\n\nおつかれさまでした。よい終電を。'
+    }
+  ];
+
+  function ninmuKousin(){
+    var nin = hitobito.length;
+    var kIdx = kanjiNuki();
+    var mada = hitobito.filter(function(h, i){ return !h.sumi && i !== kIdx; }).length;
+    var b = el('ninmu');
+    if(nin === 0){
+      b.disabled = true;
+      el('ninmuChuui').textContent = '会が終わり、みんなの会費が集まるまで押せません。';
+    } else if(mada > 0){
+      b.disabled = true;
+      el('ninmuChuui').textContent = 'あと ' + mada + '人 の会費が残っています。もう少しです。';
+    } else {
+      b.disabled = false;
+      el('ninmuChuui').textContent = '全員そろいました。どうぞ、押してください。';
+    }
+  }
+
+  el('ninmu').addEventListener('click', function(){
+    var n = negirai[Number(el('kaisuu').value) || 0];
+    el('rouMidashi').textContent = n.midashi;
+    var takai = 0;
+    for(var lv = 2; lv <= saigo; lv++){ if(kaiData[lv] && kaiData[lv].done) takai = lv; }
+
+    var soeru = '';
+    if(takai === 2){
+      soeru = '二次会まで、ごくろうさまでした。\n\n一次会を仕切っただけでも大仕事なのに、そのあと店を探して、また人数を数えて、また割った。あの時間の幹事を、私は知っています。\n\n';
+    } else if(takai === 3){
+      soeru = '三次会まで、ごくろうさまでした。\n\n一次会を仕切って、二次会を割って、それでもまだ終わらなかった。あの時間の幹事を、私は知っています。\n\n';
+    } else if(takai >= 4 && takai < saigo){
+      soeru = kanSuji[takai] + '次会まで、ごくろうさまでした。\n\nこの時間まで勘定を合わせている人は、もうあなたしかいません。誰も見ていない場所で、最後まで数えた。それを知っている者が、ここにひとりいます。\n\n';
+    } else if(takai === saigo){
+      soeru = '九次会。\n\nこのアプリが用意した最後の会まで、あなたは来ました。作った側の想定を越えています。\n\nもう何も申し上げることはありません。どうか、無事に帰ってください。\n\n';
+    }
+    el('rouBun').textContent = soeru + n.bun;
+    el('rou').hidden = false;
+  });
+  el('rouTojiru').addEventListener('click', function(){
+    el('rou').hidden = true;
+  });
+  el('rouTsugi').addEventListener('click', function(){
+    if(!confirm('この会の内容をすべて消して、まっさらから始めます。よろしいですか。')) return;
+    try{ localStorage.removeItem(hakoNa); }catch(e){}
+    location.reload();
+  });
+
+  /* ---- 日程調整の案内 ---- */
+  el('chousei').addEventListener('click', function(){
+    hiraku('https://chouseisan.com/');
+  });
+  el('chouseiHoka').addEventListener('click', function(){
+    hiraku('https://www.google.com/search?q=' + encodeURIComponent('日程調整 ツール 無料'));
+  });
+
+  /* ---- 終電 ---- */
+  var youbiMei = ['日曜','月曜','火曜','水曜','木曜','金曜','土曜'];
+  function denSagasu(){
+    var eki = el('eki').value.trim();
+    var hi = el('hi').value;
+    var youbi = '';
+    if(hi){
+      var d = new Date(hi + 'T00:00:00');
+      if(!isNaN(d)) youbi = ' ' + youbiMei[d.getDay()];
+    }
+    hiraku('https://www.google.com/search?q=' + encodeURIComponent((eki ? eki + '駅 ' : '') + '終電' + youbi));
+  }
+  el('shuudenShiraberu').addEventListener('click', denSagasu);
+
+  /* ---- お店をさがす ---- */
+  function sagasukotoba(){
+    var w = [];
+    var eki = el('eki').value.trim();
+    if(eki) w.push(eki + '駅');
+    if(el('keitou').value) w.push(el('keitou').value);
+    if(el('koshitsu').checked) w.push('個室');
+    if(el('nomihou').checked) w.push('飲み放題');
+    if(el('kinen').checked) w.push('禁煙');
+    var nin = Number(el('ninzu').value || 0);
+    if(nin) w.push(nin + '人');
+    if(el('yosan').value) w.push(el('yosan').value);
+    return w.join(' ');
+  }
+
+  function kotobaKousin(){
+    var k = sagasukotoba();
+    el('kotoba').textContent = k || '駅を入れると、ここに言葉ができます';
+  }
+
+  function hiraku(url){
+    window.open(url, '_blank', 'noopener');
+  }
+
+  ['eki','ninzu','yosan','keitou','koshitsu','nomihou','kinen'].forEach(function(id){
+    el(id).addEventListener('input', kotobaKousin);
+    el(id).addEventListener('change', kotobaKousin);
+  });
+
+  el('hpg').addEventListener('click', function(){
+    var k = sagasukotoba();
+    if(!k){ el('eki').focus(); return; }
+    hiraku('https://www.google.com/search?q=' + encodeURIComponent(k + ' 宴会 site:hotpepper.jp'));
+  });
+  el('tbl').addEventListener('click', function(){
+    var k = sagasukotoba();
+    if(!k){ el('eki').focus(); return; }
+    hiraku('https://www.google.com/search?q=' + encodeURIComponent(k + ' site:tabelog.com'));
+  });
+  el('chizu').addEventListener('click', function(){
+    var k = sagasukotoba();
+    if(!k){ el('eki').focus(); return; }
+    hiraku('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(k));
+  });
+
+  /* ---- 候補のお店 ---- */
+  var kouhotachi = [];
+  var yoyakuKata = ['まだ未定', 'ネット予約できました', 'さんざん検索したけど予約画面でてきません😵'];
+
+  function kouhoKaku(){
+    var ul = el('kouhoIchiran');
+    ul.innerHTML = '';
+    kouhotachi.forEach(function(k, i){
+      var li = document.createElement('li');
+      li.className = 'kouhogyou';
+
+      var na = document.createElement('span');
+      na.textContent = k.namae;
+      li.appendChild(na);
+
+      var sel = document.createElement('select');
+      yoyakuKata.forEach(function(y){
+        var op = document.createElement('option');
+        op.value = y;
+        op.textContent = y;
+        if(y === k.yoyaku) op.selected = true;
+        sel.appendChild(op);
+      });
+      sel.setAttribute('aria-label', k.namae + 'の予約方法');
+      sel.addEventListener('change', function(){ k.yoyaku = this.value; });
+      li.appendChild(sel);
+
+      var kimeru = document.createElement('button');
+      kimeru.type = 'button';
+      kimeru.className = 'chiisai';
+      kimeru.textContent = 'ここにする';
+      kimeru.addEventListener('click', function(){
+        el('mise').value = k.namae;
+        hozon();
+        el('mise').scrollIntoView({ block:'center', behavior:'smooth' });
+      });
+      li.appendChild(kimeru);
+
+      var hazusu = document.createElement('button');
+      hazusu.type = 'button';
+      hazusu.className = 'usu chiisai';
+      hazusu.textContent = 'はずす';
+      hazusu.addEventListener('click', function(){
+        if(el('mise').value.trim() === k.namae) el('mise').value = '';
+        kouhotachi.splice(i, 1);
+        kouhoKaku();
+        hozon();
+      });
+      li.appendChild(hazusu);
+
+      ul.appendChild(li);
+    });
+  }
+
+  function kouhoKuwaeru(){
+    var n = el('kouho').value.trim();
+    if(!n){ el('kouho').focus(); return; }
+    kouhotachi.push({ namae:n, yoyaku:yoyakuKata[0] });
+    el('kouho').value = '';
+    el('kouho').focus();
+    kouhoKaku();
+    hozon();
+  }
+  el('kouho').setAttribute('enterkeyhint', 'done');
+  el('kouhoTsuika').addEventListener('click', kouhoKuwaeru);
+
+  /* ---- 余りのゆくえ ---- */
+  var ukigane = 0;
+
+  function amariMoji(){
+    if(ukigane <= 0) return '';
+    var v = el('amarisaki').value;
+    if(!v) return '';
+    var saki = (v === '__jiyuu') ? el('amariJiyuu').value.trim() : v;
+    if(!saki) return '';
+    return '余りの ' + ukigane.toLocaleString('ja-JP') + '円 は、' + saki + '。';
+  }
+
+  function amariKousin(){
+    el('amariJiyuu').hidden = el('amarisaki').value !== '__jiyuu';
+    var nin = hitobito.length;
+    el('amariWari').textContent = (ukigane > 0 && nin)
+      ? '※ みんなで割ると、ひとり ' + Math.floor(ukigane / nin).toLocaleString('ja-JP')
+        + '円 です（幹事のあなたを含めた ' + nin + '人 で割っています）。'
+      : '';
+    var m = amariMoji();
+    el('amariBun').textContent = m
+      ? '※ お誘い文と帳面に、この一文が入ります。「' + m + '」'
+      : '※ 決めておくと、お誘い文にそのまま載せられます。黙って持ち帰るのが、いちばん気まずいので。';
+  }
+
+  el('amarisaki').addEventListener('change', amariKousin);
+  el('amariJiyuu').addEventListener('input', amariKousin);
+
+  /* ---- 参加者 ---- */
+  function kakikomi(){
+    var ul = el('ichiran');
+    ul.innerHTML = '';
+    el('karahyouji').hidden = hitobito.length > 0;
+    hitobito.forEach(function(h, i){
+      var li = document.createElement('li');
+      var ban = document.createElement('span');
+      ban.className = 'bangou';
+      ban.textContent = (i + 1);
+      var s = document.createElement('span');
+      s.className = 'hitoname';
+      s.textContent = h.namae;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'usu chiisai';
+      b.textContent = 'はずす';
+      b.addEventListener('click', function(){
+        hitobito.splice(i, 1);
+        kakikomi();
+        keisan();
+        hozon();
+      });
+      li.appendChild(ban);
+      li.appendChild(s);
+
+      if(kanjiNuki() === i) li.appendChild(yakuFuda('幹', '幹事さん（会費なし）'));
+      if(h.namae === yaku.kanpai) li.appendChild(yakuFuda('乾', '乾杯のひと言'));
+      if(h.namae === yaku.shime) li.appendChild(yakuFuda('締', '締めのひと言'));
+      if(yaku.watasu.indexOf(h.namae) >= 0){
+        var pre = yakuFuda('🎁', 'プレゼントを渡す担当');
+        pre.className = 'yaku pre';
+        li.appendChild(pre);
+      }
+
+      var memo = document.createElement('input');
+      memo.type = 'text';
+      memo.className = 'memoiri';
+      memo.value = h.memo || '';
+      memo.placeholder = 'ひとこと・都合をメモ';
+      memo.setAttribute('aria-label', h.namae + 'についてのひとこと');
+      memo.setAttribute('enterkeyhint', 'done');
+      memo.addEventListener('input', function(){ h.memo = this.value; });
+      li.appendChild(memo);
+
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+
+    el('goukei').hidden = hitobito.length === 0;
+    el('goukeiChuui').hidden = hitobito.length === 0;
+    el('goukeiNin').textContent = hitobito.length;
+    yakuKousin();
+  }
+
+  /* ---- みんなで出すもの ---- */
+  var monotachi = [];
+
+  function monoKaku(){
+    var ul = el('monoIchiran');
+    ul.innerHTML = '';
+    monotachi.forEach(function(m, i){
+      var li = document.createElement('li');
+      var na = document.createElement('span');
+      na.className = 'hitoname';
+      na.style.maxWidth = '10em';
+      na.textContent = m.na;
+      var ga = document.createElement('span');
+      ga.className = 'kingaku';
+      ga.style.flex = '1';
+      ga.style.textAlign = 'right';
+      ga.textContent = m.gaku.toLocaleString('ja-JP') + '円';
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'usu chiisai';
+      b.textContent = 'はずす';
+      b.addEventListener('click', function(){
+        monotachi.splice(i, 1);
+        monoKaku();
+        kakikomi();
+        keisan();
+        hozon();
+      });
+      li.appendChild(na);
+      li.appendChild(ga);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+  }
+
+  function monoGoukei(){
+    return monotachi.reduce(function(a, m){ return a + m.gaku; }, 0);
+  }
+
+  function monoKuwaeru(){
+    var na = el('monoNa').value.trim();
+    var g = Number(el('monoGaku').value || 0);
+    if(!na || !g){ el('monoNa').focus(); return; }
+    monotachi.push({ na:na, gaku:g });
+    el('monoNa').value = '';
+    el('monoGaku').value = '';
+    el('monoNa').focus();
+    monoKaku();
+    kakikomi();
+    keisan();
+    hozon();
+  }
+  el('monoTsuika').addEventListener('click', monoKuwaeru);
+  ['monoNa','monoGaku'].forEach(function(id){
+    el(id).setAttribute('enterkeyhint', 'done');
+  });
+
+  /* ---- 乾杯と締めの役 ---- */
+  var yaku = { kanpai:'', shime:'', watasu:[] };
+
+  function yakuFuda(moji, setsumei){
+    var sp = document.createElement('span');
+    sp.className = 'yaku';
+    sp.textContent = moji;
+    sp.title = setsumei;
+    return sp;
+  }
+
+  function yakuKousin(){
+    el('yakuBako').hidden = hitobito.length === 0;
+    var namae = hitobito.map(function(h){ return h.namae; });
+    if(yaku.kanpai && namae.indexOf(yaku.kanpai) < 0) yaku.kanpai = '';
+    if(yaku.shime && namae.indexOf(yaku.shime) < 0) yaku.shime = '';
+    watasuKaku();
+
+    if(yaku.kanji && namae.indexOf(yaku.kanji) < 0) yaku.kanji = '';
+    var ks = el('kanjiDare');
+    ks.innerHTML = '';
+    var ksKara = document.createElement('option');
+    ksKara.value = '';
+    ksKara.textContent = 'えらんでください';
+    ks.appendChild(ksKara);
+    namae.forEach(function(n){
+      var op = document.createElement('option');
+      op.value = n;
+      op.textContent = n;
+      if(n === yaku.kanji) op.selected = true;
+      ks.appendChild(op);
+    });
+    el('kanjiRan').hidden = !el('kanjiMochi').checked;
+    el('kanjiChuui').textContent = !yaku.kanji
+      ? '※ 幹事さんを選ぶまでは、全員で割っています。'
+      : (hitobito.length < 2
+        ? '※ ひとりきりの会では、この設定は使えません。'
+        : '※ ' + yaku.kanji + 'の会費は0円になり、残りの ' + (hitobito.length - 1) + '人 で割ります。これも、先にひと言伝えておくと角が立ちません。');
+
+    el('negaiKanpai').hidden = !yaku.kanpai;
+    el('negaiShime').hidden = !yaku.shime;
+
+    [['yakuKanpai','kanpai'], ['yakuShime','shime']].forEach(function(k){
+      var sel = el(k[0]);
+      sel.innerHTML = '';
+      var kara = document.createElement('option');
+      kara.value = '';
+      kara.textContent = 'まだ未定';
+      sel.appendChild(kara);
+      namae.forEach(function(n){
+        var op = document.createElement('option');
+        op.value = n;
+        op.textContent = n;
+        if(n === yaku[k[1]]) op.selected = true;
+        sel.appendChild(op);
+      });
+    });
+  }
+
+  function hiMoji(){
+    var hi = el('hi').value;
+    if(!hi) return '';
+    var d = new Date(hi + 'T00:00:00');
+    if(isNaN(d)) return '';
+    return (d.getMonth() + 1) + '月' + d.getDate() + '日（' + youbiMei[d.getDay()].charAt(0) + '）';
+  }
+
+  function negaiBun(dare, yakuMei){
+    var kai = el('kaimei').value.trim();
+    var hi = hiMoji();
+    var atama = yobikata(dare) + '\n\n';
+    var ba = (hi ? hi + 'の' : '') + (kai ? '【' + kai + '】' : 'このたびの会') + 'ですが、';
+
+    if(yakuMei === 'kanpai'){
+      return atama + ba + '乾杯の音頭をお願いできないでしょうか。\n'
+        + 'ひと言いただいて、そのまま乾杯していただければ大丈夫です。長くなくて結構です。\n\n'
+        + 'ご都合が悪ければ、遠慮なくお知らせください。よろしくお願いします。';
+    }
+    if(yakuMei === 'watasu'){
+      return atama + ba + 'プレゼントをお渡しする役をお願いできないでしょうか。\n'
+        + '会の後半、締めのご挨拶の前あたりでお渡しいただければと思います。ひと言そえていただけると、なおありがたいです。\n\n'
+        + 'ご都合が悪ければ、遠慮なくお知らせください。よろしくお願いします。';
+    }
+    return atama + ba + '最後の締めのご挨拶をお願いできないでしょうか。\n'
+      + 'お開きの少し前に、ひと言いただければと思います。手締めをされる場合は、あわせて教えてください。\n\n'
+      + 'ご都合が悪ければ、遠慮なくお知らせください。よろしくお願いします。';
+  }
+
+  el('negaiKanpai').addEventListener('click', function(){
+    if(!yaku.kanpai) return;
+    utsusu(negaiBun(yaku.kanpai, 'kanpai'), this);
+  });
+  el('negaiShime').addEventListener('click', function(){
+    if(!yaku.shime) return;
+    utsusu(negaiBun(yaku.shime, 'shime'), this);
+  });
+
+
+  el('yakuKanpai').addEventListener('change', function(){
+    yaku.kanpai = this.value;
+    kakikomi();
+  });
+  el('yakuShime').addEventListener('change', function(){
+    yaku.shime = this.value;
+    kakikomi();
+  });
+  function watasuKaku(){
+    var ran = el('watasuRan');
+    ran.hidden = !(monotachi.length && hitobito.length);
+    if(ran.hidden) return;
+
+    var namae = hitobito.map(function(h){ return h.namae; });
+    yaku.watasu = yaku.watasu.filter(function(n){ return namae.indexOf(n) >= 0; });
+
+    var naka = el('watasuNaka');
+    naka.innerHTML = '';
+
+    yaku.watasu.concat(['']).forEach(function(ima, idx){
+      var aru = (idx < yaku.watasu.length);
+      var gyou = document.createElement('div');
+      gyou.className = 'watasuGyou';
+
+      var sel = document.createElement('select');
+      sel.setAttribute('aria-label', '渡す担当');
+      var kara = document.createElement('option');
+      kara.value = '';
+      kara.textContent = aru
+        ? 'この担当をはずす'
+        : (yaku.watasu.length ? 'もうひとりえらぶ？' : 'まだ未定');
+      sel.appendChild(kara);
+
+      namae.forEach(function(n){
+        if(n !== ima && yaku.watasu.indexOf(n) >= 0) return;
+        var op = document.createElement('option');
+        op.value = n;
+        op.textContent = n;
+        if(n === ima) op.selected = true;
+        sel.appendChild(op);
+      });
+
+      sel.addEventListener('change', function(){
+        var v = this.value;
+        if(aru){
+          if(v) yaku.watasu[idx] = v;
+          else yaku.watasu.splice(idx, 1);
+        } else if(v){
+          yaku.watasu.push(v);
+        }
+        kakikomi();
+        hozon();
+      });
+      gyou.appendChild(sel);
+
+      if(aru){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'usu chiisai';
+        b.textContent = 'お願い文';
+        b.addEventListener('click', function(){
+          utsusu(negaiBun(ima, 'watasu'), b);
+        });
+        gyou.appendChild(b);
+      }
+
+      naka.appendChild(gyou);
+    });
+  }
+
+  var keishou = ['さん','さま','様','くん','君','ちゃん','先生','先輩','殿','どの','女史',
+                 '部長','課長','係長','主任','専務','常務','社長','会長','店長','所長',
+                 '室長','局長','支店長','教授','博士','監督','隊長','班長','店主','親方'];
+
+  function yobikata(na){
+    for(var i = 0; i < keishou.length; i++){
+      if(na.slice(-keishou[i].length) === keishou[i]) return na;
+    }
+    return na + 'さん';
+  }
+
+  function kuwaeru(){
+    var n = el('namae').value.trim();
+    if(!n){ el('namae').focus(); return; }
+    hitobito.push({ namae:n, sumi:false, kanpa:0, memo:'' });
+    el('namae').value = '';
+    el('namae').focus();
+    kakikomi();
+    keisan();
+    hozon();
+  }
+  el('namae').setAttribute('enterkeyhint', 'done');
+  el('tsuika').addEventListener('click', kuwaeru);
+
+  /* ---- 会費 ---- */
+  function hitsuyouGaku(){
+    var nin = hitobito.length;
+    var motoi = Number(el('soutaku').value || 0);
+    var dodai = (el('keisanMode').value === 'kai') ? motoi * nin : motoi;
+    if(!dodai && !monoGoukei()) return 0;
+    return dodai
+      + monoGoukei()
+      + (el('appdai').checked ? 500 : 0)
+      + (el('daikou').checked ? Number(el('daikougaku').value || 0) : 0);
+  }
+
+  /* 幹事の分をみんなで持つとき、幹事の並び番号を返す（なければ -1） */
+  function kanjiNuki(){
+    if(!el('daikou').checked || !el('kanjiMochi').checked || !yaku.kanji) return -1;
+    if(hitobito.length < 2) return -1;
+    for(var i = 0; i < hitobito.length; i++){
+      if(hitobito[i].namae === yaku.kanji) return i;
+    }
+    return -1;
+  }
+  function haraiNin(){
+    return hitobito.length - (kanjiNuki() >= 0 ? 1 : 0);
+  }
+  function haraiGaku(h, i, kihon, kIdx){
+    return (i === kIdx ? 0 : kihon) + h.kanpa;
+  }
+  function kanpaGoukei(){
+    return hitobito.reduce(function(a, h){ return a + (h.kanpa || 0); }, 0);
+  }
+  /* 帳面の並び順（画面とコピーで共通） */
+  function junbanTsukuru(kIdx){
+    var junban = hitobito.map(function(h, i){ return { h:h, i:i }; });
+    if(narabi === 'mada'){
+      junban.sort(function(a, b){
+        var as = a.h.sumi || a.i === kIdx, bs = b.h.sumi || b.i === kIdx;
+        return (as === bs) ? a.i - b.i : (as ? 1 : -1);
+      });
+    } else if(narabi === 'kanpa'){
+      junban.sort(function(a, b){
+        return (b.h.kanpa - a.h.kanpa) || (a.i - b.i);
+      });
+    }
+    return junban;
+  }
+  function jikanMoji(){
+    var a = el('hajime').value, b = el('owari').value;
+    if(a && b) return a + '〜' + b;
+    if(a) return a + '〜';
+    if(b) return '〜' + b;
+    return '';
+  }
+
+  function kihongaku(){
+    var nin = haraiNin();
+    if(!nin) return 0;
+    var t = Number(el('tanni').value);
+    return Math.ceil((hitsuyouGaku() / nin) / t) * t;
+  }
+
+  var yureru = -1;
+
+  function keisan(){
+    var kihon = kihongaku();
+    var nin = hitobito.length;
+    var kIdx = kanjiNuki();
+    var harai = haraiNin();
+
+    el('hitori').textContent = (nin && kihon) ? kihon.toLocaleString('ja-JP') + '円' : '—';
+    el('hitoriShousai').textContent = nin
+      ? 'ひとりあたりの会費（' + nin + '人'
+        + (kIdx >= 0 ? '・幹事さんをのぞく ' + harai + '人で割っています' : '') + '）'
+      : 'ひとりあたりの会費';
+
+    /* 端数のゆくえ */
+    var hasuu = el('hasuu');
+    var tashizan = hitsuyouGaku();
+    if(nin && tashizan){
+      var kichiri = tashizan / harai;
+      var uku = (kihon * harai) - tashizan;
+      var moji = 'きっちり割ると ひとり '
+        + kichiri.toLocaleString('ja-JP', { maximumFractionDigits:1 }) + '円。';
+      if(uku > 0){
+        moji += '\nまるめた分、手元に ' + uku.toLocaleString('ja-JP') + '円 残ります'
+          + (el('daikou').checked ? '（幹事代行費とは別です）' : '') + '。';
+      } else {
+        moji += '\nちょうど割り切れました。' + (kanpaGoukei() ? '' : '手元には残りません。');
+      }
+      var kp = kanpaGoukei();
+      var nokoru = (uku > 0 ? uku : 0) + kp;
+      if(kp > 0){
+        moji += '\nカンパで ＋' + kp.toLocaleString('ja-JP') + '円。手元に残るのは、あわせて '
+          + nokoru.toLocaleString('ja-JP') + '円 です。';
+      }
+      hasuu.textContent = moji;
+      hasuu.hidden = false;
+      ukigane = nokoru;
+    } else {
+      hasuu.hidden = true;
+      ukigane = 0;
+    }
+    el('amariran').hidden = ukigane <= 0;
+    amariKousin();
+    ninmuKousin();
+
+    var cho = el('chouba');
+    cho.innerHTML = '';
+    var atsumari = 0;
+
+    var junban = junbanTsukuru(kIdx);
+
+    junban.forEach(function(kumi){
+      var h = kumi.h;
+      var i = kumi.i;
+      var gyou = document.createElement('div');
+      gyou.className = 'gyou';
+
+      var ue = document.createElement('div');
+      ue.className = 'gyouUe';
+      gyou.appendChild(ue);
+
+      var ban = document.createElement('span');
+      ban.className = 'bangou';
+      ban.textContent = (i + 1);
+      ue.appendChild(ban);
+
+      var han = document.createElement('button');
+      han.type = 'button';
+      han.className = 'hanko' + (h.sumi ? ' sumi' : '')
+        + ((h.sumi && yureru === i) ? ' pon' : '');
+      han.textContent = h.sumi ? '済' : '未';
+      han.setAttribute('aria-pressed', h.sumi ? 'true' : 'false');
+      han.setAttribute('aria-label', h.namae + 'の支払い');
+      if(i === kIdx){
+        han.className = 'hanko sumi';
+        han.textContent = '幹';
+        han.disabled = true;
+        han.setAttribute('aria-label', h.namae + '（幹事さん・会費なし）');
+      }
+      han.addEventListener('click', function(){
+        if(i === kIdx) return;
+        h.sumi = !h.sumi;
+        yureru = h.sumi ? i : -1;
+        keisan();
+        hozon();
+      });
+
+      var na = document.createElement('div');
+      na.className = 'namae';
+      var b = document.createElement('b');
+      b.textContent = h.namae;
+      na.appendChild(b);
+      var fuda = null;
+      if(el('kanpa').checked && h.kanpa > 0){
+        fuda = document.createElement('span');
+        fuda.className = 'badge';
+        fuda.textContent = 'カンパ ' + h.kanpa.toLocaleString('ja-JP') + '円';
+      }
+
+      var kin = document.createElement('div');
+      kin.className = 'kingaku';
+      kin.textContent = haraiGaku(h, i, kihon, kIdx).toLocaleString('ja-JP');
+
+      ue.appendChild(han);
+      ue.appendChild(na);
+      if(fuda) ue.appendChild(fuda);
+      ue.appendChild(kin);
+
+      var botanBako = document.createElement('div');
+      botanBako.className = 'gyouBotan';
+
+      if(el('kanpa').checked){
+        if(h.aketa){
+          var iri = document.createElement('input');
+          iri.type = 'text';
+          iri.inputMode = 'numeric';
+          iri.className = 'kanpaIri';
+          iri.value = h.kanpa ? h.kanpa : '';
+          iri.placeholder = '例：1000';
+          iri.setAttribute('enterkeyhint', 'done');
+          iri.setAttribute('aria-label', h.namae + 'のカンパ額');
+
+          var kimeru = function(){
+            h.kanpa = Math.max(0, Number(iri.value) || 0);
+            h.aketa = false;
+            keisan();
+            hozon();
+          };
+          iri._kettei = kimeru;
+
+          var ok = document.createElement('button');
+          ok.type = 'button';
+          ok.className = 'chiisai';
+          ok.textContent = '入れる';
+          ok.addEventListener('click', kimeru);
+
+          var yame = document.createElement('button');
+          yame.type = 'button';
+          yame.className = 'usu chiisai';
+          yame.textContent = 'やめる';
+          yame.addEventListener('click', function(){
+            h.aketa = false;
+            keisan();
+          });
+
+          botanBako.appendChild(iri);
+          botanBako.appendChild(ok);
+          botanBako.appendChild(yame);
+        } else {
+          var kb = document.createElement('button');
+          kb.type = 'button';
+          kb.className = 'usu chiisai';
+          kb.textContent = h.kanpa > 0 ? 'カンパを直す' : '＋カンパ';
+          kb.addEventListener('click', function(){
+            hitobito.forEach(function(x){ x.aketa = false; });
+            h.aketa = true;
+            keisan();
+            var m = el('chouba').querySelector('.kanpaIri');
+            if(m){ m.focus(); m.select(); }
+          });
+          botanBako.appendChild(kb);
+        }
+      }
+
+      if(!h.sumi && i !== kIdx){
+        var sai = document.createElement('button');
+        sai.type = 'button';
+        sai.className = 'chiisai';
+        sai.textContent = 'そっと一声';
+        sai.addEventListener('click', function(){ saisoku(h, kihon, sai); });
+        botanBako.appendChild(sai);
+      }
+      if(botanBako.children.length) gyou.appendChild(botanBako);
+
+      if(h.sumi || i === kIdx) atsumari += haraiGaku(h, i, kihon, kIdx);
+      cho.appendChild(gyou);
+    });
+
+    yureru = -1;
+    el('atsumari').textContent = yen(atsumari);
+
+    var sou = hitsuyouGaku();
+    var yotei = (kihon * harai) + hitobito.reduce(function(a,h){ return a + h.kanpa; }, 0);
+    var sa = yotei - sou;
+    var kpS = kanpaGoukei();
+    el('sashigae').textContent = (nin && sou)
+      ? 'ぜんぶ集まると ' + yen(yotei) + (kpS ? '（うちカンパ ' + yen(kpS) + '）' : '') + '。\n'
+        + (sa >= 0 ? '必要な額を払っても ' + yen(sa) + ' 余ります。' : '足りません。あと ' + yen(-sa) + '。')
+      : '';
+  }
+
+  function modeKousin(){
+    var kai = el('keisanMode').value === 'kai';
+    el('soutakuLabel').textContent = kai ? 'ひとりの会費（円）' : 'お店の総額（円）';
+    el('soutaku').placeholder = kai ? '例：5000' : '例：60000';
+  }
+  el('keisanMode').addEventListener('change', function(){
+    modeKousin();
+    keisan();
+    hozon();
+  });
+
+  var narabi = 'meibo';
+  el('narabeKae').addEventListener('change', function(){
+    narabi = this.value;
+    keisan();
+  });
+
+  ['keisanMode','soutaku','tanni','appdai','daikou','daikougaku','kanpa'].forEach(function(id){
+    el(id).addEventListener('input', keisan);
+    el(id).addEventListener('change', keisan);
+  });
+  el('daikou').addEventListener('change', function(){
+    el('daikouran').hidden = !this.checked;
+    kakikomi();
+    keisan();
+  });
+  el('kanjiMochi').addEventListener('change', function(){
+    kakikomi();
+    keisan();
+  });
+  el('kanjiDare').addEventListener('change', function(){
+    yaku.kanji = this.value;
+    kakikomi();
+    keisan();
+  });
+
+  /* ---- チラシ（A4） ---- */
+  function nigate(t){
+    return String(t).replace(/[&<>]/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;' }[c];
+    });
+  }
+
+  el('chirashiBotan').addEventListener('click', function(){
+    var kihon = kihongaku();
+    var hi = el('hi').value;
+    var hiMoji = '調整中';
+    if(hi){
+      var d = new Date(hi + 'T00:00:00');
+      if(!isNaN(d)){
+        hiMoji = (d.getMonth() + 1) + '月' + d.getDate() + '日（' + youbiMei[d.getDay()].charAt(0) + '）';
+      }
+    }
+    var basho = el('mise').value.trim() || (el('eki').value.trim() ? el('eki').value.trim() + '駅 周辺' : '調整中');
+    var mono = monotachi.map(function(m){ return m.na; }).join('、');
+
+    var h = '<h1>' + nigate(el('kaimei').value.trim() || 'お知らせ') + '</h1><dl>';
+    h += '<dt>日にち</dt><dd>' + nigate(hiMoji) + '</dd>';
+    if(jikanMoji()) h += '<dt>時間</dt><dd>' + nigate(jikanMoji()) + '</dd>';
+    var bashoSoe = '';
+    if(el('juusho').value.trim()) bashoSoe += '<br>' + nigate(el('juusho').value.trim());
+    if(el('denwa').value.trim()) bashoSoe += '<br>電話：' + nigate(el('denwa').value.trim());
+    h += '<dt>場所</dt><dd>' + nigate(basho) + bashoSoe + '</dd>';
+    h += '<dt>会費</dt><dd>' + (kihon ? kihon.toLocaleString('ja-JP') + '円' : '調整中') + '</dd>';
+    h += '<dt>人数</dt><dd>' + hitobito.length + '名</dd>';
+    if(mono) h += '<dt>含むもの</dt><dd>' + nigate(mono) + '</dd>';
+    h += '</dl><div class="kakomi">';
+    if(el('payurl').value.trim()){
+      h += '会費のお支払いはこちらへ<br>' + nigate(el('payurl').value.trim()) + '<br><br>';
+    }
+    if(amariMoji()) h += nigate(amariMoji()) + '<br>';
+    if(el('shuuden').value.trim()) h += '本日の終電：' + nigate(el('shuuden').value.trim()) + '<br>';
+    h += 'ご参加、お待ちしています。</div>';
+    h += '<p class="sain">幹事より</p>';
+
+    el('chirashi').innerHTML = h;
+    el('kamiBako').hidden = false;
+    el('kamiBako').scrollTop = 0;
+  });
+
+  el('chirashiInsatsu').addEventListener('click', function(){
+    try{ window.print(); }
+    catch(e){ alert('この画面からは印刷できません。画面を保存するか、ブラウザのメニューからお試しください。'); }
+  });
+  el('chirashiTojiru').addEventListener('click', function(){
+    el('kamiBako').hidden = true;
+  });
+
+  /* ---- 文面 ---- */
+  function misebako(moji){
+    el('mojiNaka').value = moji;
+    el('mojiBako').hidden = false;
+    el('mojiNaka').focus();
+    el('mojiNaka').select();
+  }
+  el('mojiTojiru').addEventListener('click', function(){
+    el('mojiBako').hidden = true;
+  });
+
+  function furui(moji){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = moji;
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    }catch(e){ return false; }
+  }
+
+  function utsusu(moji, botan){
+    var owari = function(){
+      if(!botan) return;
+      var moto = botan.textContent;
+      botan.textContent = 'コピーしました';
+      setTimeout(function(){ botan.textContent = moto; }, 1600);
+    };
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(moji).then(owari, function(){
+          if(!furui(moji)) misebako(moji); else owari();
+        });
+        return;
+      }
+    }catch(e){}
+    if(furui(moji)) owari();
+    else misebako(moji);
+  }
+
+  function saisoku(h, kihon, botan){
+    var m = el('kaimei').value.trim() || 'この前の会';
+    var moji = yobikata(h.namae) + '\n'
+      + m + 'の会費のご連絡です。\n'
+      + '会費は ' + (kihon + h.kanpa).toLocaleString('ja-JP') + '円 です。\n'
+      + (el('payurl').value.trim() ? 'こちらからお願いします → ' + el('payurl').value.trim() + '\n' : '')
+      + 'お手すきのときで大丈夫です。よろしくお願いします。';
+    utsusu(moji, botan);
+  }
+
+  el('sasoibun').addEventListener('click', function(){
+    var kihon = kihongaku();
+    var hi = hiMoji() || '（日にち調整中）';
+    var jikan = jikanMoji();
+    var basho = el('mise').value.trim()
+      || (el('eki').value.trim() ? el('eki').value.trim() + '駅 周辺' : '（調整中）');
+    var soe = '';
+    if(el('juusho').value.trim()) soe += '　　　' + el('juusho').value.trim() + '\n';
+    if(el('denwa').value.trim()) soe += '　　　電話：' + el('denwa').value.trim() + '\n';
+    var moji = '【' + (el('kaimei').value.trim() || 'お知らせ') + '】\n'
+      + '日にち：' + hi + (jikan ? '　' + jikan : '') + '\n'
+      + '場所：' + basho + '\n' + soe
+      + '会費：' + (kihon ? kihon.toLocaleString('ja-JP') + '円' : '（未定）') + '\n'
+      + (el('payurl').value.trim() ? '会費はこちらへ → ' + el('payurl').value.trim() + '\n' : '')
+      + (amariMoji() ? amariMoji() + '\n' : '')
+      + '\nご参加お待ちしています。';
+    utsusu(moji, this);
+  });
+
+  el('hikaeru').addEventListener('click', function(){
+    var kihon = kihongaku();
+    var kIdx = kanjiNuki();
+    var nk = el('narabeKae');
+    var moji = (el('kaimei').value.trim() || '会') + ' 集金の自分用の控え\n'
+      + 'お店に伝える人数：' + hitobito.length + '名\n'
+      + '並び順：' + nk.options[nk.selectedIndex].text + '\n\n';
+    junbanTsukuru(kIdx).forEach(function(kumi, n){
+      var h = kumi.h, i = kumi.i;
+      moji += (n + 1) + '. ' + (i === kIdx ? '[幹] ' : (h.sumi ? '[済] ' : '[未] ')) + h.namae + ' '
+        + haraiGaku(h, i, kihon, kIdx).toLocaleString('ja-JP') + '円'
+        + (h.kanpa ? '（カンパ ' + h.kanpa.toLocaleString('ja-JP') + '円）' : '')
+        + (h.memo ? '\n    ' + h.memo : '') + '\n';
+    });
+    moji += '\n' + el('atsumari').textContent + ' 集まりました。'
+      + (yaku.kanpai ? '\n乾杯のひと言：' + yaku.kanpai : '')
+      + (yaku.shime ? '\n締めのひと言：' + yaku.shime : '')
+      + (yaku.watasu.length ? '\n渡す担当：' + yaku.watasu.join('、') : '')
+      + (amariMoji() ? '\n' + amariMoji() : '');
+    utsusu(moji, this);
+  });
+
+  /* ---- さくっと二次会 ---- */
+  var iku = {};
+  var kaiLevel = 2;
+  var kanSuji = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+  var saigo = 9;
+  var hitokoto = {
+    3: 'お水は飲みましたか。幹事さんの分も。',
+    4: 'まだ行きますか。',
+    5: '終電を、もう一度みてください。',
+    6: '明日はお休みですか。',
+    7: '……。',
+    8: 'もはや合宿です。',
+    9: 'ここが打ち止めです。もう帰りましょう。'
+  };
+  var kaiData = {};
+  for(var lvI = 2; lvI <= saigo; lvI++){
+    kaiData[lvI] = { nin:'', sou:'', kuri:false, hitori:0, done:false };
+  }
+
+  function nijiKaku(){
+    var bako = el('nijiHitoRan');
+    bako.innerHTML = '';
+    hitobito.forEach(function(h, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'nijiHito' + (iku[i] ? ' iku' : '');
+      b.textContent = h.namae;
+      b.addEventListener('click', function(){
+        iku[i] = !iku[i];
+        var kazu = 0;
+        hitobito.forEach(function(x, j){ if(iku[j]) kazu++; });
+        el('nijiNin').value = kazu ? kazu : '';
+        nijiKaku();
+        nijiKeisan();
+      });
+      bako.appendChild(b);
+    });
+  }
+
+  function nijiKeisan(){
+    var nin = Number(el('nijiNin').value || 0);
+    kaiData[kaiLevel].nin = el('nijiNin').value;
+    kaiData[kaiLevel].sou = el('nijiSou').value;
+    kaiData[kaiLevel].kuri = el('nijiKuri').checked;
+
+    var sou = Number(el('nijiSou').value || 0);
+    var hiku = (el('nijiKuri').checked && ukigane > 0) ? ukigane : 0;
+    var t = 100;
+
+    if(nin && sou){
+      var nokori = Math.max(0, sou - hiku);
+      var hitori = Math.ceil((nokori / nin) / t) * t;
+      el('nijiHitori').textContent = hitori.toLocaleString('ja-JP') + '円';
+      kaiData[kaiLevel].hitori = hitori;
+      el('nijiShousai').textContent = 'ひとりあたり（' + nin + '人・100円単位）'
+        + (hiku ? ' ／ 余り ' + hiku.toLocaleString('ja-JP') + '円を引いています' : '');
+    } else {
+      el('nijiHitori').textContent = '—';
+      el('nijiShousai').textContent = nin ? 'ひとりあたり（' + nin + '人）' : 'ひとりあたり';
+      kaiData[kaiLevel].hitori = 0;
+    }
+    hozon();
+  }
+
+  function nijiAkeru(lv){
+    kaiLevel = lv;
+    var d = kaiData[lv];
+    el('nijiMidashi').textContent = 'さくっと' + kanSuji[lv] + '次会';
+    el('nijiKanryou').textContent = kanSuji[lv] + '次会完了';
+    el('nijiHitokoto').hidden = !hitokoto[lv];
+    el('nijiHitokoto').textContent = hitokoto[lv] || '';
+    el('nijiHitoRan').hidden = (lv !== 2);
+    el('nijiHotel').hidden = (lv < 3);
+    el('nijiManga').hidden = (lv < 3);
+    el('nijiNinLabel').textContent = (lv === 2)
+      ? '割る人数（ちょくせつ入力でも、名前をえらぶでもOK）'
+      : '割る人数';
+    el('sanjiHiraku').hidden = (lv >= saigo);
+    el('sanjiHiraku').textContent = (lv < saigo) ? (kanSuji[lv + 1] + '次会モード') : '';
+    el('nijiKuriRan').hidden = !(lv === 2 && ukigane > 0);
+    el('nijiAmari').textContent = ukigane > 0 ? ukigane.toLocaleString('ja-JP') + '円' : '';
+    el('nijiNin').value = d.nin;
+    el('nijiSou').value = d.sou;
+    el('nijiKuri').checked = !!d.kuri;
+
+    var den = el('shuuden').value.trim();
+    var bako = el('nijiShuuden');
+    bako.innerHTML = '';
+    if(den){
+      bako.className = 'nijiShuuden';
+      bako.appendChild(document.createTextNode('今日の終電'));
+      var bb = document.createElement('b');
+      bb.textContent = den;
+      bako.appendChild(bb);
+    } else {
+      bako.className = 'nijiShuuden kara';
+      var sag = document.createElement('button');
+      sag.type = 'button';
+      sag.className = 'denBotan';
+      sag.textContent = '終電を調べる';
+      sag.addEventListener('click', denSagasu);
+      bako.appendChild(sag);
+    }
+
+    nijiKaku();
+    nijiKeisan();
+    el('nijiBako').hidden = false;
+    el('nijiBako').scrollTop = 0;
+  }
+
+  el('nijiHiraku').addEventListener('click', function(){ nijiAkeru(2); });
+  el('sanjiHiraku').addEventListener('click', function(){
+    if(kaiLevel < saigo) nijiAkeru(kaiLevel + 1);
+  });
+  el('nijiTojiru').addEventListener('click', function(){
+    el('nijiBako').hidden = true;
+  });
+  el('nijiKanryou').addEventListener('click', function(){
+    if(!kaiData[kaiLevel].hitori){
+      alert('人数とお支払い総額を入れてください。');
+      return;
+    }
+    kaiData[kaiLevel].done = true;
+    hozon();
+    el('nijiBako').hidden = true;
+  });
+  el('nijiSou').addEventListener('input', nijiKeisan);
+  el('nijiNin').addEventListener('input', nijiKeisan);
+  el('nijiKuri').addEventListener('change', nijiKeisan);
+  el('nijiMise').addEventListener('click', function(){
+    hiraku('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('居酒屋 深夜'));
+  });
+  el('nijiKara').addEventListener('click', function(){
+    hiraku('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('カラオケ'));
+  });
+  el('nijiBar').addEventListener('click', function(){
+    hiraku('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('バー'));
+  });
+  el('nijiRamen').addEventListener('click', function(){
+    hiraku('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('ラーメン 深夜'));
+  });
+  el('nijiHotel').addEventListener('click', function(){
+    hiraku('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('ホテル'));
+  });
+  el('nijiManga').addEventListener('click', function(){
+    hiraku('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('漫画喫茶'));
+  });
+
+  /* ---- 記録 ---- */
+  var kirokuNa = 'otsukare-kiroku';
+
+  function kirokuYomu(){
+    try{
+      var v = localStorage.getItem(kirokuNa);
+      var a = v ? JSON.parse(v) : [];
+      return Array.isArray(a) ? a : [];
+    }catch(e){ return []; }
+  }
+
+  function kirokuHozon(a){
+    try{ localStorage.setItem(kirokuNa, JSON.stringify(a)); }catch(e){}
+  }
+
+  function kirokuTsukuru(){
+    var kihon = kihongaku();
+    var atsumari = 0;
+    var kIdx = kanjiNuki();
+    hitobito.forEach(function(h, i){
+      if(h.sumi || i === kIdx) atsumari += haraiGaku(h, i, kihon, kIdx);
+    });
+
+    return {
+      id: String(Date.now()),
+      hi: el('hi').value || '',
+      kai: el('kaimei').value.trim() || '名前のない会',
+      eki: el('eki').value.trim(),
+      mise: el('mise').value.trim(),
+      nin: hitobito.length,
+      kaihi: kihon,
+      atsumari: atsumari,
+      kanpa: hitobito.filter(function(h){ return h.kanpa > 0; })
+                     .map(function(h){ return { na:h.namae, gaku:h.kanpa }; }),
+      yakuK: yaku.kanpai,
+      yakuS: yaku.shime,
+      yakuW: yaku.watasu.join('、'),
+      mono: monotachi.slice(),
+      kouho: kouhotachi.slice(),
+      amari: amariMoji(),
+      kais: (function(){
+        var a = [];
+        for(var lv = 2; lv <= saigo; lv++){
+          if(kaiData[lv] && kaiData[lv].done){
+            a.push({ lv:lv, nin:kaiData[lv].nin, sou:kaiData[lv].sou, hitori:kaiData[lv].hitori });
+          }
+        }
+        return a;
+      })()
+    };
+  }
+
+  function hiKaku(v){
+    if(!v) return '日づけなし';
+    var d = new Date(v + 'T00:00:00');
+    if(isNaN(d)) return v;
+    return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
+      + '（' + youbiMei[d.getDay()].charAt(0) + '）';
+  }
+
+  function kirokuKaku(){
+    var a = kirokuYomu();
+    el('kirokuDan').hidden = (a.length === 0);
+    var ul = el('kirokuIchiran');
+    ul.innerHTML = '';
+    a.slice().reverse().forEach(function(k){
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'kirokuBotan';
+      var tt = document.createElement('b');
+      tt.textContent = hiKaku(k.hi) + '　' + k.kai;
+      var sm = document.createElement('small');
+      sm.textContent = k.nin + '名 ／ ひとり ' + Number(k.kaihi || 0).toLocaleString('ja-JP') + '円';
+      b.appendChild(tt);
+      b.appendChild(sm);
+      b.addEventListener('click', function(){ mikataHiraku(k); });
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+  }
+
+  var imaMiteru = null;
+
+  function gyouTsuika(dl, na, atai){
+    if(!atai) return;
+    var dt = document.createElement('dt');
+    dt.textContent = na;
+    var dd = document.createElement('dd');
+    dd.textContent = atai;
+    dl.appendChild(dt);
+    dl.appendChild(dd);
+  }
+
+  function mikataHiraku(k){
+    imaMiteru = k;
+    el('mikataMidashi').textContent = k.kai;
+    var naka = el('mikataNaka');
+    naka.innerHTML = '';
+
+    var dl = document.createElement('dl');
+    gyouTsuika(dl, '日にち', hiKaku(k.hi));
+    gyouTsuika(dl, 'お店', k.mise || (k.eki ? k.eki + '駅 周辺' : ''));
+    gyouTsuika(dl, '人数', k.nin + '名');
+    gyouTsuika(dl, '会費', Number(k.kaihi || 0).toLocaleString('ja-JP') + '円');
+    gyouTsuika(dl, '集まった額', Number(k.atsumari || 0).toLocaleString('ja-JP') + '円');
+    if(k.mono && k.mono.length){
+      gyouTsuika(dl, 'みんなで出したもの', k.mono.map(function(m){
+        return m.na + ' ' + Number(m.gaku).toLocaleString('ja-JP') + '円';
+      }).join('、'));
+    }
+    if(k.kanpa && k.kanpa.length){
+      gyouTsuika(dl, 'カンパしてくれた方', k.kanpa.map(function(c){
+        return c.na + ' ' + Number(c.gaku).toLocaleString('ja-JP') + '円';
+      }).join('、'));
+    }
+    gyouTsuika(dl, '乾杯の担当', k.yakuK);
+    gyouTsuika(dl, '最後の締め担当', k.yakuS);
+    gyouTsuika(dl, '渡す担当', k.yakuW);
+    gyouTsuika(dl, '余りのゆくえ', k.amari);
+    naka.appendChild(dl);
+
+    var kais = k.kais || [];
+    if(!kais.length){
+      if(k.niji) kais.push({ lv:2, nin:k.niji.nin, sou:k.niji.sou, hitori:k.niji.hitori });
+      if(k.sanji) kais.push({ lv:3, nin:k.sanji.nin, sou:k.sanji.sou, hitori:k.sanji.hitori });
+    }
+    kais.forEach(function(c){
+      var h = document.createElement('p');
+      h.className = 'midashi2';
+      h.textContent = kanSuji[c.lv] + '次会';
+      naka.appendChild(h);
+      var dl2 = document.createElement('dl');
+      gyouTsuika(dl2, '人数', (c.nin || '') + '名');
+      gyouTsuika(dl2, 'お支払い総額', Number(c.sou || 0).toLocaleString('ja-JP') + '円');
+      gyouTsuika(dl2, 'ひとりあたり', Number(c.hitori || 0).toLocaleString('ja-JP') + '円');
+      naka.appendChild(dl2);
+    });
+
+    if(k.kouho && k.kouho.length){
+      var h3 = document.createElement('p');
+      h3.className = 'midashi2';
+      h3.textContent = 'メモしたお店';
+      naka.appendChild(h3);
+      var dl3 = document.createElement('dl');
+      k.kouho.forEach(function(c){ gyouTsuika(dl3, c.namae, c.yoyaku); });
+      naka.appendChild(dl3);
+    }
+
+    el('mikataBako').hidden = false;
+    el('mikataBako').scrollTop = 0;
+  }
+
+  el('mikataTojiru').addEventListener('click', function(){
+    el('mikataBako').hidden = true;
+  });
+  el('mikataKesu').addEventListener('click', function(){
+    if(!imaMiteru) return;
+    if(!confirm('この記録を消します。よろしいですか。')) return;
+    var a = kirokuYomu().filter(function(k){ return k.id !== imaMiteru.id; });
+    kirokuHozon(a);
+    el('mikataBako').hidden = true;
+    kirokuKaku();
+  });
+
+  el('rouKiroku').addEventListener('click', function(){
+    if(!confirm('この会を記録して、まっさらから始めます。よろしいですか。')) return;
+    var a = kirokuYomu();
+    a.push(kirokuTsukuru());
+    if(a.length > 50) a = a.slice(a.length - 50);
+    kirokuHozon(a);
+    try{ localStorage.removeItem(hakoNa); }catch(e){}
+    location.reload();
+  });
+
+  /* ---- 決定キーは、次の欄へ飛ばさない ---- */
+  function kettei(e){
+    var kettei13 = (e.key === 'Enter' || e.keyCode === 13 || e.which === 13);
+    var tab9 = (e.key === 'Tab' || e.keyCode === 9 || e.which === 9);
+    if(!kettei13 && !tab9) return;
+    var t = e.target;
+    if(!t || t.tagName !== 'INPUT') return;
+    e.preventDefault();
+    if(typeof t._kettei === 'function') t._kettei();
+    else if(t.id === 'namae') kuwaeru();
+    else if(t.id === 'kouho') kouhoKuwaeru();
+    else if(t.id === 'monoNa') el('monoGaku').focus();
+    else if(t.id === 'monoGaku') monoKuwaeru();
+    else t.blur();
+  }
+  document.addEventListener('keydown', kettei, true);
+  document.addEventListener('keyup', function(e){
+    if(e.key === 'Enter' || e.keyCode === 13) e.preventDefault();
+  }, true);
+
+  Array.prototype.forEach.call(document.querySelectorAll('input'), function(e){
+    e.setAttribute('enterkeyhint', 'done');
+  });
+
+  /* ---- 自動保存 ---- */
+  var hakoNa = 'kanji-app';
+  var kouUn = ['kaisuu','kaimei','hi','eki','hajime','owari','mise','juusho','denwa','shuuden','ninzu','yosan','keitou',
+               'koshitsu','nomihou','kinen','keisanMode','soutaku','tanni','appdai',
+               'daikou','daikougaku','kanjiMochi','kanpa','payurl','amarisaki','amariJiyuu','narabeKae'];
+
+  function hozon(){
+    try{
+      var f = {};
+      kouUn.forEach(function(id){
+        var e = el(id);
+        f[id] = (e.type === 'checkbox') ? e.checked : e.value;
+      });
+      localStorage.setItem(hakoNa, JSON.stringify({
+        f:f, hitobito:hitobito, kouhotachi:kouhotachi, monotachi:monotachi,
+        yaku:yaku, iku:iku, kai:kaiData
+      }));
+    }catch(e){ /* 保存できない場所では、そのまま続けます */ }
+  }
+
+  function yomikomi(){
+    try{
+      var nama = localStorage.getItem(hakoNa);
+      if(!nama) return;
+      var d = JSON.parse(nama);
+      if(d.f){
+        kouUn.forEach(function(id){
+          if(!(id in d.f)) return;
+          var e = el(id);
+          if(e.type === 'checkbox') e.checked = !!d.f[id];
+          else e.value = d.f[id];
+        });
+      }
+      if(Array.isArray(d.hitobito)){
+        hitobito = d.hitobito;
+        hitobito.forEach(function(h){ h.aketa = false; });
+      }
+      if(Array.isArray(d.kouhotachi)) kouhotachi = d.kouhotachi;
+      if(Array.isArray(d.monotachi)) monotachi = d.monotachi;
+      if(d.yaku){
+        yaku = d.yaku;
+        if(typeof yaku.watasu === 'string') yaku.watasu = yaku.watasu ? [yaku.watasu] : [];
+        if(!yaku.watasu) yaku.watasu = [];
+      }
+      if(d.iku) iku = d.iku;
+      if(d.kai){
+        for(var lv2 = 2; lv2 <= saigo; lv2++){
+          if(d.kai[lv2]) kaiData[lv2] = d.kai[lv2];
+        }
+      }
+      narabi = el('narabeKae').value || 'meibo';
+    }catch(e){ /* 読めなければ、まっさらで始めます */ }
+  }
+
+  el('kesu').addEventListener('click', function(){
+    if(!confirm('この端末に保存した内容を消します。よろしいですか。')) return;
+    try{ localStorage.removeItem(hakoNa); }catch(e){}
+    location.reload();
+  });
+
+  document.addEventListener('input', function(){ hozon(); });
+  document.addEventListener('change', function(){ hozon(); });
+
+  yomikomi();
+  el('daikouran').hidden = !el('daikou').checked;
+  kirokuKaku();
+  modeKousin();
+  monoKaku();
+  kouhoKaku();
+  kotobaKousin();
+  kakikomi();
+  keisan();
+})();
+</script>
+</body>
+</html>
