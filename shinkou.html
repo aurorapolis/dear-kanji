@@ -1,0 +1,505 @@
+<!doctype html>
+<!--
+  dear幹事 当日の小さな進行表 (shinkou)
+  Copyright (c) 2026 aurorapolis - All Rights Reserved.
+
+  本作品の複製・改変・再配布・商用利用を禁じます。
+  Unauthorized copying, modification, redistribution, or commercial use
+  of this work is prohibited. See LICENSE for details.
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#16304d">
+<title>進行表</title>
+<style>
+:root{--bg:#0f2338;--card:#16304d;--card2:#1c3a5c;--ink:#f3ead2;--sub:#a9b7c9;--gold:#d4af57;--gold2:#f0d58a;--line:#2b4a6e;--line-green:#06c755}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.5;-webkit-text-size-adjust:100%}
+.wrap{max-width:520px;margin:0 auto;padding:16px 16px 40px}
+h1{font-size:22px;margin:8px 0 2px;color:var(--gold2);letter-spacing:.05em}
+h2{font-size:15px;margin:0 0 8px;color:var(--gold2)}
+.lead{color:var(--sub);font-size:13px;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+label.f{display:block;font-size:12px;color:var(--sub);margin-bottom:4px}
+input[type=text],input[type=time],input[type=date]{width:100%;min-height:44px;font-size:16px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-family:inherit;-webkit-appearance:none;appearance:none}
+input::placeholder{color:#6f86a0}
+input:focus{outline:2px solid var(--gold);outline-offset:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.timegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.timegrid>div{min-width:0}
+.timegrid input{font-size:20px;font-weight:700;color:var(--gold2);min-height:56px;padding:8px 6px;text-align:center}
+.tnote{margin-top:8px;font-size:13px;color:var(--sub);min-height:44px;display:flex;align-items:center}
+.tnote b{color:var(--ink);margin-left:6px;font-size:16px}
+.eadj2{display:flex;gap:8px;margin-top:8px}
+.eadj2 .ib{flex:1;min-height:44px}
+.sl{font-size:12px;color:var(--sub)}
+.timegrid input:disabled{opacity:1;-webkit-text-fill-color:var(--gold2);border-style:dashed}
+.honbun{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--bg);border:1px dashed var(--line);font-size:13px;color:var(--sub);line-height:1.8}
+.honbun b{color:var(--ink);font-size:15px}
+.honbun .demo{color:var(--gold2)}
+.pull{flex:1;min-width:0;min-height:44px;display:flex;align-items:center;padding:8px 12px;border-radius:10px;border:1px dashed var(--line);font-size:16px;font-weight:600;overflow-wrap:anywhere}
+.pull.empty{color:#6f86a0;font-weight:400;font-size:14px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:8px;display:grid;grid-template-columns:68px minmax(0,1fr);column-gap:10px;row-gap:8px;align-items:center}
+.rt{display:flex;align-items:center;gap:8px;min-width:0}
+.rt .ic{width:28px;text-align:center;flex:none}
+.rt .title{flex:1;min-width:0}
+.wbox{min-width:0}
+.wbox .pull{width:100%}
+.rctl{display:flex;align-items:center;gap:8px}
+.rctl .sp{flex:1}
+.rtop{display:flex;align-items:center;gap:8px}
+.time{font-size:22px;font-weight:700;color:var(--gold2);font-variant-numeric:tabular-nums;min-width:62px}
+.tcol{text-align:center}
+.tcol .time{min-width:0}
+.tdur{font-size:12px;color:var(--sub);font-variant-numeric:tabular-nums;margin-top:-2px}
+.ic{font-size:20px}
+.title{flex:1;min-width:0;font-weight:600}
+.rwho{display:flex;align-items:center;gap:8px;margin-top:8px}
+.wl{font-size:12px;color:var(--sub);line-height:1.3}
+.rwho input{flex:1;min-width:0}
+.rbot{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.dur{display:flex;align-items:center;gap:8px}
+.dv{min-width:48px;text-align:center;font-variant-numeric:tabular-nums}
+.ib{min-width:44px;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--ink);font-size:15px;cursor:pointer;font-family:inherit}
+.ib:active{background:var(--line)}
+.swapw{display:flex;justify-content:center;margin:-2px 0 8px}
+.swap{border:1px dashed var(--gold);background:transparent;color:var(--gold2);border-radius:999px;padding:8px 16px;font-size:14px;cursor:pointer;font-family:inherit}
+.endrow{display:grid;grid-template-columns:68px minmax(0,1fr);column-gap:10px;align-items:center;padding:12px;border:1px dashed var(--gold);border-radius:14px}
+.endrow .time{min-width:0}
+.endrow .et{flex:1;font-weight:600;font-size:16px}
+.eadj{display:flex;gap:6px}
+.hint{font-size:12px;color:var(--sub);margin:8px 2px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--gold);background:transparent;color:var(--ink);font-size:14px;cursor:pointer;font-family:inherit}
+.chip:active{background:var(--card2)}
+pre#pv{white-space:pre-wrap;word-break:break-all;margin:0 0 12px;padding:12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-family:inherit;font-size:14px;line-height:1.6;-webkit-user-select:text;user-select:text}
+.btns{display:flex;gap:10px}
+.btn{flex:1;min-height:50px;border-radius:12px;border:0;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn.line{background:var(--line-green);color:#fff}
+.btn.copy{background:transparent;border:2px solid var(--gold);color:var(--gold2)}
+.btn:active{opacity:.8}
+.banner{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#3a2f12;border:1px solid var(--gold);color:var(--gold2);font-size:14px}
+.banner[hidden]{display:none}
+.reset{display:block;margin:6px auto 0;background:none;border:0;color:var(--sub);font-size:12px;text-decoration:underline;cursor:pointer;font-family:inherit;min-height:44px}
+.foot{text-align:center;color:var(--sub);font-size:11px;margin-top:14px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--gold);color:#16304d;font-weight:700;padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;max-width:90vw;text-align:center;z-index:9}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;background:rgba(5,15,28,.7);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20}
+.modal[hidden]{display:none}
+.mbox{background:var(--card);border:1px solid var(--gold);border-radius:16px;padding:20px 18px 16px;width:100%;max-width:340px;text-align:center}
+.mmsg{white-space:pre-line;font-size:17px;font-weight:700;margin:0 0 18px;overflow-wrap:anywhere}
+.mbtns{display:flex;gap:10px}
+.mbtns .btn{min-height:48px;font-size:16px}
+.btn.danger{background:#c0394d;color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📜 進行表</h1>
+  <p class="lead">おおよそのメモとして作っていきましょう!</p>
+
+  <div class="card">
+    <div class="timegrid">
+      <div>
+        <label class="f" for="start">はじまりの時間</label>
+        <input type="time" id="start" value="19:00">
+        <div class="tnote">全体<b id="total">2時間</b></div>
+      </div>
+      <div>
+        <label class="f" for="endt">おわりの時間</label>
+        <input type="time" id="endt" value="21:00">
+        <div class="eadj2"><button class="ib" id="tm" aria-label="おわりを15分早く">−15</button><button class="ib" id="tp" aria-label="おわりを15分遅く">+15</button></div>
+      </div>
+    </div>
+    <div class="honbun" id="honbun"></div>
+  </div>
+
+  <div class="card">
+    <h2>🍻 とりあえず、こんな感じでどうでしょう?</h2>
+    <div id="list"></div>
+  </div>
+
+  <div class="card">
+    <h2>➕ 項目を足す</h2>
+    <div class="chips" id="chips">
+      <button class="chip" data-t="記念撮影" data-d="5" data-ic="📸">📸 記念撮影</button>
+      <button class="chip" data-t="二次会の案内" data-d="5" data-ic="🍶">🍶 二次会の案内</button>
+      <button class="chip" data-t="歓談タイム" data-d="15" data-ic="💬">💬 歓談タイム</button>
+      <button class="chip" data-t="" data-d="10" data-ic="📌">✏️ 自分で書く</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📨 みんなに送る</h2>
+    <div class="banner" id="banner" hidden>📨 進行表を直したので、もう一度送り直してね</div>
+    <pre id="pv"></pre>
+    <div class="btns">
+      <button class="btn line" id="btnLine">LINEで送る</button>
+      <button class="btn copy" id="btnCopy">コピーする</button>
+    </div>
+    <p class="hint">進行表を直したら、もう一度送り直してね。</p>
+  </div>
+
+  <button class="reset" id="reset">最初の案に戻す</button>
+  <div class="foot">© aurorapolis</div>
+</div>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mmsg">
+  <div class="mbox">
+    <p class="mmsg" id="mmsg"></p>
+    <div class="mbtns">
+      <button class="btn copy" id="mNo">やめる</button>
+      <button class="btn danger" id="mYes">消す</button>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+(function(){
+  var KEY='dear-kanji-shinkou';
+  /* 会の専用リンクの元になるアプリのURL。本体(index.html)の DEAR.APP_URL があれば、それを使う */
+  var APP_URL='https://aurorapolis.github.io/dear-kanji/';
+  try{
+    if(window.parent&&window.parent!==window&&window.parent.DEAR&&window.parent.DEAR.APP_URL){
+      APP_URL=window.parent.DEAR.APP_URL;
+    }
+  }catch(e){}
+  var CH='abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  function rnd(){var s='';for(var i=0;i<4;i++)s+=CH.charAt(Math.floor(Math.random()*CH.length));return s;}
+  function $(id){return document.getElementById(id);}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  function def(keep){
+    var s={
+      start:'19:00',rand:rnd(),pulled:{},
+      opening:{title:'開会・乾杯',icon:'🍻',who:'',wl:'挨拶する人',label:'挨拶',req:true,src:'kanpai',dur:30},
+      mid:[
+        {title:'ゲーム大会',icon:'🎮',who:'',wl:'担当(任意)',label:'担当',req:false,dur:45},
+        {title:'プレゼントタイム',icon:'🎁',who:'',wl:'渡す人',label:'渡す人',req:true,src:'watasu',dur:35}
+      ],
+      closing:{title:'締めの挨拶',icon:'🙇',who:'',wl:'締める人',label:'',req:true,src:'shime',dur:10}
+    };
+    if(keep){s.start=keep.start;s.rand=keep.rand;s.sent=keep.sent;s.dirty=keep.dirty;}
+    return s;
+  }
+  function load(){
+    try{
+      var raw=localStorage.getItem(KEY);
+      if(raw){
+        var s=JSON.parse(raw);
+        if(s&&s.opening&&s.closing&&Array.isArray(s.mid)&&typeof s.start==='string')return s;
+      }
+    }catch(e){}
+    return def();
+  }
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+
+  var state=load();
+    var curH=null;
+  var pendingRender=false;
+
+  function pad(n){return (n<10?'0':'')+n;}
+  function toMin(s){var p=String(s).split(':');return (+p[0])*60+(+p[1]||0);}
+  function fmt(m){m=((m%1440)+1440)%1440;return pad(Math.floor(m/60))+':'+pad(m%60);}
+  function fmtDur(m){var h=Math.floor(m/60),r=m%60;return (h?h+'時間':'')+(r?r+'分':'')||'0分';}
+  function refs(){return state.mid.concat([state.opening,state.closing]);}
+  function total(){var t=0;refs().forEach(function(r){t+=r.dur;});return t;}
+  function longest(){var best=null;refs().forEach(function(r){if(!best||r.dur>best.dur)best=r;});return best;}
+  function get(k,i){return k==='open'?state.opening:(k==='close'?state.closing:state.mid[i]);}
+  function todayStr(){var d=new Date();return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());}
+  // ---- 本体(dear幹事)の入力を引っ張る ----
+  // 本体は同じ場所(同じドメイン)に置くと、この端末に保存された入力が読める。
+  // 単体で開いたときは、見本のデータを出す。
+  var HAKO_KEY='dear-kanji-hako';
+  var DEMO={f:{hi:'2026-12-22',kanjiNamae:'田中',kaimei:'忘年会',hajime:'19:00',owari:'21:00'},yaku:{kanpai:'部長',shime:'佐藤さん',watasu:['鈴木さん','高橋さん']}};
+  var KEISHOU=['さん','さま','様','くん','君','ちゃん','先生','先輩','殿','どの','女史','部長','課長','係長','主任','専務','常務','社長','会長','店長','所長','室長','局長','支店長','教授','博士','監督','隊長','班長','店主','親方'];
+  function yobikata(n){
+    n=String(n||'').trim();
+    if(!n)return '';
+    for(var i=0;i<KEISHOU.length;i++){if(n.slice(-KEISHOU[i].length)===KEISHOU[i])return n;}
+    return n+'さん';
+  }
+  function honbun(){
+    var d=null,demo=false;
+    try{var raw=localStorage.getItem(HAKO_KEY);if(raw)d=JSON.parse(raw);}catch(e){}
+    if(!d||!d.f){d=DEMO;demo=true;}
+    var f=d.f||{},y=d.yaku||{};
+    var w=y.watasu;
+    if(typeof w==='string')w=w?[w]:[];
+    if(!Array.isArray(w))w=[];
+    return {demo:demo,kaimei:String(f.kaimei||'').trim(),hajime:f.hajime||'',owari:f.owari||'',date:f.hi||'',host:String(f.kanjiNamae||'').trim()||y.kanji||'',kanpai:y.kanpai||'',shime:y.shime||'',watasu:w};
+  }
+  // 本体の「始まり」「お開き」が変わったときだけ、こちらの時間を合わせ直す(こちらで直した分は、本体が変わるまで残る)
+  function syncFromHonbun(H){
+    var P=state.pulled||(state.pulled={});
+    var cH=H.hajime&&H.hajime!==P.hajime, cO=H.owari&&H.owari!==P.owari;
+    if(!cH&&!cO)return false;
+    if(H.hajime){state.start=H.hajime;P.hajime=H.hajime;}
+    if(H.owari){
+      P.owari=H.owari;
+      var raw=toMin(H.owari)-toMin(state.start);
+      if(raw<=0)raw+=1440;
+      setTotal(raw);
+    }
+    $('start').value=state.start;
+    return true;
+  }
+  function srcName(src,H){
+    if(src==='kanpai')return yobikata(H.kanpai);
+    if(src==='shime')return yobikata(H.shime);
+    if(src==='watasu')return H.watasu.map(yobikata).join('・');
+    return '';
+  }
+  function whoOf(it){return it.src?srcName(it.src,honbun()):(it.who||'').trim();}
+  function whoBox(it){
+    if(it.src){
+      var n=srcName(it.src,curH);
+      return '<div class="pull'+(n?'':' empty')+'">'+(n?esc(n):'本体で選んでください')+'</div>';
+    }
+    return '<input type="text" data-f="who" value="'+esc(it.who)+'" placeholder="'+(it.req?'誰かお願いします🙏':'名前(例:田中さん)')+'" aria-label="'+esc(it.wl)+'">';
+  }
+  function dateLabel(H){
+    if(!H.date)return '';
+    var p=H.date.split('-').map(Number);
+    var dt=new Date(p[0],p[1]-1,p[2]);
+    if(isNaN(dt.getTime()))return '';
+    return p[1]+'月'+p[2]+'日('+'日月火水木金土'.charAt(dt.getDay())+')';
+  }
+  // 会の専用リンク(?kai=日付-ランダム4文字)。日付が入っているので、受け取った人が怪しまない
+  function link(H){
+    var d=H.date?H.date.replace(/-/g,''):todayStr();
+    return APP_URL+'?kai='+d+'-'+state.rand;
+  }
+  function whoText(it){
+    var w=whoOf(it);
+    if(!w&&!it.req)return '';
+    var v=w||'未定';
+    return it.label?('('+it.label+':'+v+')'):('('+v+')');
+  }
+  function shareText(){
+    var H=honbun();
+    var L=[];
+    L.push('🍻 '+(H.kaimei||'会')+'の進行表');
+    var ds=dateLabel(H);
+    if(ds)L.push('📅 '+ds);
+    L.push('');
+    var t=toMin(state.start);
+    [state.opening].concat(state.mid,[state.closing]).forEach(function(it){
+      L.push(fmt(t)+' '+((it.title||'').trim()||'(項目名なし)')+whoText(it));
+      t+=it.dur;
+    });
+    L.push(fmt(t)+' 終了');
+    L.push('');
+    var h=(H.host||'').trim();
+    L.push((h?'幹事の'+h:'幹事')+'です。当日よろしくお願いします🍻');
+    L.push('怪しまれないよう、「会の日付が入ったリンク」にしています。ログイン不要・個人情報の入力なしです。');
+    L.push(link(H));
+    return L.join('\n');
+  }
+
+  function row(it,k,i,t){
+    var shift=k==='open'?'':'<span class="wl">開始時間</span><div class="rctl"><button class="ib" data-a="sm" aria-label="開始を5分早く">−5</button><button class="ib" data-a="sp" aria-label="開始を5分遅く">+5</button><span class="sp"></span>@DEL@</div>';
+    var del=k==='mid'?'<button class="ib del" data-a="del" aria-label="この項目を消す">🗑</button>':'';
+    shift=shift.replace('@DEL@',del);
+    return '<div class="row" data-k="'+k+'" data-i="'+i+'">'+
+      '<div class="tcol"><div class="time">'+fmt(t)+'</div><div class="tdur">('+it.dur+'分)</div></div>'+
+      '<div class="rt"><span class="ic">'+it.icon+'</span>'+
+      '<input type="text" class="title" data-f="title" value="'+esc(it.title)+'" placeholder="項目名を書く" aria-label="項目名"></div>'+
+      '<span class="wl">'+esc(it.wl)+'</span><div class="wbox">'+whoBox(it)+'</div>'+
+      shift+'</div>';
+  }
+  function endrow(t){
+    return '<div class="endrow"><div class="tcol"><div class="time">'+fmt(t)+'</div></div><div class="rt"><span class="ic">🏁</span><div class="et">終了</div></div></div>';
+  }
+
+  function preview(){$('pv').textContent=shareText();}
+  function renderHonbun(H){
+    var ds=dateLabel(H);
+    var h='<div>🍻 <b>'+(H.kaimei?esc(H.kaimei):'会の名前は本体で未入力')+'</b></div>';
+    h+='<div>📅 <b>'+(ds?esc(ds):'日付は本体で未入力')+'</b>　👤 幹事 <b>'+(H.host?esc(H.host):'本体で未入力')+'</b></div>';
+    h+='<div>※はじまりの時間、各項目は本体で入力した内容が入ります(ここでは直せません)。</div>';
+    $('honbun').innerHTML=h;
+    $('start').disabled=!!H.hajime;
+  }
+  function render(){
+    curH=honbun();
+    if(syncFromHonbun(curH))save();
+    renderHonbun(curH);
+    $('total').textContent=fmtDur(total());
+    $('endt').value=fmt(toMin(state.start)+total());
+    var t=toMin(state.start),h='';
+    h+=row(state.opening,'open',0,t);t+=state.opening.dur;
+    state.mid.forEach(function(it,i){
+      h+=row(it,'mid',i,t);t+=it.dur;
+      if(i<state.mid.length-1)h+='<div class="swapw"><button class="swap" data-a="swap" data-i="'+i+'">⇅ 入れ替える</button></div>';
+    });
+    h+=row(state.closing,'close',0,t);t+=state.closing.dur;
+    h+=endrow(t);
+    $('list').innerHTML=h;
+    preview();
+    $('banner').hidden=!(state.sent&&state.dirty);
+  }
+  function touchShared(){if(state.sent){state.dirty=true;$('banner').hidden=false;save();}}
+  function changed(){save();render();touchShared();}
+
+  var tt;
+  function toast(m){var el=$('toast');el.textContent=m;el.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){el.classList.remove('on');},2400);}
+
+  // 項目の開始時間を動かす(前の項目がその分のびちぢみする。開会は対象外)
+  function moveStart(it,delta){
+    var items=[state.opening].concat(state.mid,[state.closing]);
+    var p=items.indexOf(it);
+    if(p<1)return;
+    var prev=items[p-1];
+    if(delta>0){
+      if(it.dur<10){toast('これ以上は遅くできません🙇');return;}
+      if(prev.dur>=180){toast('前の項目がこれ以上は伸ばせません🙇');return;}
+      it.dur-=5;prev.dur+=5;
+    }else{
+      if(prev.dur<10){toast('前の項目がこれ以上は短くできません🙇');return;}
+      if(it.dur>=180){toast('これ以上は早くできません🙇');return;}
+      prev.dur-=5;it.dur+=5;
+    }
+    changed();
+  }
+  // 確認ポップアップ(ページ内。ブラウザの確認画面は埋め込み環境で出ないことがあるため)
+  var onYes=null;
+  function ask(msg,label,yes){if(typeof label==='function'){yes=label;label='消す';}onYes=yes;$('mmsg').textContent=msg;$('mYes').textContent=label;$('modal').hidden=false;$('mNo').focus();}
+  function closeAsk(){$('modal').hidden=true;onYes=null;}
+  $('mNo').addEventListener('click',closeAsk);
+  $('mYes').addEventListener('click',function(){var f=onYes;closeAsk();if(f)f();});
+  $('modal').addEventListener('click',function(e){if(e.target===this)closeAsk();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('modal').hidden)closeAsk();});
+  // 一覧のボタン
+  $('list').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-a]');if(!b)return;
+    var a=b.dataset.a;
+    if(a==='swap'){
+      var i=+b.dataset.i;
+      var tmp=state.mid[i];state.mid[i]=state.mid[i+1];state.mid[i+1]=tmp;
+      changed();return;
+    }
+    var r=b.closest('.row');if(!r)return;
+    var k=r.dataset.k,idx=+r.dataset.i,it=get(k,idx);
+    if(a==='sm'||a==='sp'){moveStart(it,a==='sp'?5:-5);}
+    else if(a==='del'){
+      var nm=(it.title||'').trim();
+      ask((nm?'「'+nm+'」を':'この項目を')+'本当に消しますか?',function(){
+        var p=state.mid.indexOf(it);if(p<0)return;
+        var d=it.dur;state.mid.splice(p,1);
+        var L2=longest();if(L2)L2.dur+=d;
+        changed();
+      });
+    }
+  });
+  // おわりの時間 = はじまり + 全体。全体を5分きざみで合わせ、いちばん長い項目から伸び縮みさせる
+  function setTotal(target){
+    target=Math.round(target/5)*5;
+    var items=refs(),cur=total();
+    if(target<items.length*5){toast('これ以上は短くできません🙇');return false;}
+    if(target>items.length*180){toast('これ以上は長くできません🙇');return false;}
+    function pick(ok){var b=null;items.forEach(function(r){if(ok(r)&&(!b||r.dur>b.dur))b=r;});return b;}
+    while(cur<target){var g=pick(function(r){return r.dur<180;});if(!g)break;g.dur+=5;cur+=5;}
+    while(cur>target){var h=pick(function(r){return r.dur>=10;});if(!h)break;h.dur-=5;cur-=5;}
+    return true;
+  }
+  $('tm').addEventListener('click',function(){if(setTotal(total()-15))changed();});
+  $('tp').addEventListener('click',function(){if(setTotal(total()+15))changed();});
+  $('endt').addEventListener('change',function(){
+    var v=this.value;
+    if(!v){render();return;}
+    var raw=toMin(v)-toMin(state.start);
+    if(raw<=0)raw+=1440;
+    if(setTotal(raw))changed();else render();
+  });
+  // 文字入力(再描画しない)
+  $('list').addEventListener('input',function(e){
+    var t=e.target;if(!t.dataset||!t.dataset.f)return;
+    var r=t.closest('.row');if(!r)return;
+    var it=get(r.dataset.k,+r.dataset.i);
+    it[t.dataset.f]=t.value;
+    save();preview();touchShared();
+  });
+
+  // 項目を足す
+  function addItem(t,d,ic){
+    var L=longest();
+    if(L&&L.dur-d>=5)L.dur-=d;
+    state.mid.push({title:t,icon:ic,who:'',wl:'担当(任意)',label:'担当',req:false,dur:d});
+    changed();
+    if(!t){
+      var q=document.querySelector('.row[data-k="mid"][data-i="'+(state.mid.length-1)+'"] .title');
+      if(q)q.focus();
+    }
+  }
+  $('chips').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-d]');if(!b)return;
+    addItem(b.dataset.t,+b.dataset.d,b.dataset.ic);
+  });
+
+  // 上の入力欄
+  ['start'].forEach(function(id){
+    var el=$(id);
+    el.value=state[id]||'';
+    el.addEventListener('input',function(){
+      if(id==='start'&&!el.value)return;
+      state[id]=el.value;
+      save();render();touchShared();
+    });
+  });
+
+  // 送る
+  function copyText(t){
+    function fallback(){
+      var ta=document.createElement('textarea');
+      ta.value=t;ta.style.position='fixed';ta.style.opacity='0';
+      document.body.appendChild(ta);ta.focus();ta.select();
+      var ok=false;try{ok=document.execCommand('copy');}catch(e){}
+      document.body.removeChild(ta);return ok;
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(t).then(function(){return true;},function(){return fallback();});
+    }
+    return Promise.resolve(fallback());
+  }
+  function markShared(){state.sent=true;state.dirty=false;$('banner').hidden=true;save();}
+  $('btnCopy').addEventListener('click',function(){
+    copyText(shareText()).then(function(ok){
+      if(ok){markShared();toast('コピーしました! LINEに貼ってね🍻');}
+      else toast('コピーできませんでした。上の文章を長押ししてコピーしてね');
+    });
+  });
+  $('btnLine').addEventListener('click',function(){
+    var url='https://line.me/R/msg/text/?'+encodeURIComponent(shareText());
+    markShared();
+    var w=null;try{w=window.open(url,'_blank');}catch(e){}
+    if(!w){
+      /* ポップアップが止められたときは、本体の画面ごと LINE へ移る(進行表は端末に保存済み) */
+      try{window.top.location.href=url;}catch(e){location.href=url;}
+    }
+  });
+
+  $('reset').addEventListener('click',function(){
+    ask('最初の案に戻しますか?\n(入力した内容や追加した項目は消えます)','戻す',function(){
+      state=def(state);save();
+      ['start'].forEach(function(id){$(id).value=state[id]||'';});
+      render();touchShared();toast('最初の案に戻しました');
+    });
+  });
+
+  // 入力中は再描画しない(フォーカスと入力中の文字を守る)。入力が終わったら反映する
+  function editing(){var a=document.activeElement;return !!(a&&a.tagName==='INPUT'&&a.type==='text'&&$('list').contains(a));}
+  function softRender(){if(editing()){pendingRender=true;return;}pendingRender=false;render();}
+  window.addEventListener('storage',softRender);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)softRender();});
+  document.addEventListener('focusout',function(){
+    if(!pendingRender)return;
+    setTimeout(function(){if(pendingRender&&!editing()){pendingRender=false;render();}},0);
+  });
+  render();
+})();
+</script>
+</body>
+</html>

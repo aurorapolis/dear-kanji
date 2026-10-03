@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日程調整の文章 | dear幹事</title>
+<style>
+:root{
+  --ai:#16304d;
+  --kami:#f7f4ec;
+  --sumi:#23201c;
+  --usuzumi:#7a736b;
+  --keisen:#d8d0bd;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--ai);
+  color:var(--sumi);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+  font-size:15px;
+  line-height:1.75;
+  padding:0 0 64px;
+}
+.maki{max-width:640px;margin:0 auto;padding:0 14px}
+.noren{
+  background:var(--ai);
+  color:var(--kami);
+  padding:28px 22px 22px;
+  text-align:center;
+}
+.noren h1{font-size:20px;font-weight:400;line-height:1.5}
+.dan{
+  background:var(--kami);
+  border-radius:3px;
+  margin-top:14px;
+  padding:22px 18px 24px;
+}
+.oshirase{font-size:13.5px;margin-bottom:14px}
+.setsumei{font-size:12.5px;color:var(--usuzumi);margin-bottom:14px}
+textarea{
+  width:100%;
+  font:inherit;
+  font-size:15.5px;
+  line-height:1.8;
+  padding:12px;
+  border:1px solid var(--keisen);
+  border-radius:2px;
+  background:#fff;
+  color:var(--sumi);
+  resize:vertical;
+}
+textarea:focus{outline:2px solid var(--ai);outline-offset:1px}
+button{
+  font:inherit;
+  cursor:pointer;
+  border-radius:2px;
+  border:1px solid var(--ai);
+  background:var(--ai);
+  color:var(--kami);
+  padding:11px 16px;
+  letter-spacing:.05em;
+  width:100%;
+  margin-top:12px;
+}
+button.usu{background:transparent;color:var(--ai)}
+button:active{transform:translateY(1px)}
+.modoru{
+  display:inline-block;
+  margin-top:18px;
+  font-size:13px;
+  color:var(--kami);
+  text-decoration:underline;
+}
+</style>
+</head>
+<body>
+
+<div class="noren">
+  <h1>日程調整の文章をつくろう！<br>（日程調整アプリなどを使わない方へ！）</h1>
+</div>
+
+<div class="maki">
+  <div class="dan">
+    <p class="oshirase">
+      まずは大事な最初の一歩を一緒に始めましょう！
+    </p>
+    <p class="setsumei">
+      候補日を書きかえたり、言い回しを直したりして、自由に使ってください。<br>
+      使わない方は、このページは無視してもらって大丈夫です。
+    </p>
+    <textarea id="bun" rows="18">おつかれさまです。[部署名]の[自分の名前]です。
+
+この度、[イベント名（例：〇〇さんの送別会）]の幹事を務めさせていただくことになりました。
+
+さっそくですが、開催に向けて皆様の日程を調整したくご連絡いたしました。
+
+日程を決めたいと思います。
+参加できそうな日を【〇月〇日(〇)まで】に、このメールへの返信で教えてください。
+
+【候補日】
+・　　月　　日（　）
+・　　月　　日（　）
+・　　月　　日（　）
+
+※上記以外にご都合の良い日があれば、あわせて教えていただけますと幸いです。
+
+※不参加の場合は、その旨をこの返信で伝えて頂いても構いません。
+
+日程が固まり次第、あらためてご連絡します。
+よろしくお願いいたします。</textarea>
+    <button type="button" id="copy">コピーする</button>
+    <button type="button" class="usu" id="reset">もとの文章に戻す</button>
+  </div>
+  <a class="modoru" href="index.html" id="modoru">← dear幹事にもどる</a>
+</div>
+
+<script>
+var moto = document.getElementById('bun').value;
+function el(id){ return document.getElementById(id); }
+
+el('modoru').addEventListener('click', function(e){
+  if(!confirm('dear幹事にもどりますか？書きかえた文章は消えます。')) { e.preventDefault(); return; }
+  if(!confirm('本当にもどりますか？')) { e.preventDefault(); return; }
+});
+
+function furui(moji){
+  try{
+    var ta = document.createElement('textarea');
+    ta.value = moji;
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  }catch(e){ return false; }
+}
+
+function utsusu(moji, botan){
+  var owari = function(){
+    var m0 = botan.textContent;
+    botan.textContent = 'コピーしました';
+    setTimeout(function(){ botan.textContent = m0; }, 1600);
+  };
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(moji).then(owari, function(){
+        if(furui(moji)) owari();
+        else { el('bun').focus(); el('bun').select(); }
+      });
+      return;
+    }
+  }catch(e){}
+  if(furui(moji)) owari();
+  else { el('bun').focus(); el('bun').select(); }
+}
+
+el('copy').addEventListener('click', function(){
+  utsusu(el('bun').value, el('copy'));
+});
+el('reset').addEventListener('click', function(){
+  if(!confirm('書きかえた文章を消して、もとの文章に戻します。よろしいですか。')) return;
+  if(!confirm('本当に戻しますか？書きかえた内容は元に戻せません。')) return;
+  el('bun').value = moto;
+});
+</script>
+</body>
+</html>
