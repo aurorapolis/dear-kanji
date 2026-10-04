@@ -37,6 +37,36 @@ body{
 }
 .oshirase{font-size:13.5px;margin-bottom:14px}
 .setsumei{font-size:12.5px;color:var(--usuzumi);margin-bottom:14px}
+
+/* ── タブ ── */
+.tabu{
+  display:flex;
+  gap:0;
+  border-bottom:2px solid var(--ai);
+}
+.tabu button{
+  flex:1;
+  width:auto;
+  margin:0;
+  padding:10px 6px 9px;
+  font-size:14px;
+  letter-spacing:.02em;
+  background:transparent;
+  color:var(--usuzumi);
+  border:1px solid var(--keisen);
+  border-bottom:none;
+  border-radius:3px 3px 0 0;
+  line-height:1.4;
+}
+.tabu button + button{margin-left:6px}
+.tabu button[aria-selected="true"]{
+  background:var(--ai);
+  color:var(--kami);
+  border-color:var(--ai);
+}
+.tabu button:active{transform:none}
+.tabu small{display:block;font-size:11px;opacity:.8;margin-top:1px}
+
 textarea{
   width:100%;
   font:inherit;
@@ -44,13 +74,15 @@ textarea{
   line-height:1.8;
   padding:12px;
   border:1px solid var(--keisen);
-  border-radius:2px;
+  border-top:none;
+  border-radius:0 0 2px 2px;
   background:#fff;
   color:var(--sumi);
   resize:vertical;
+  display:block;
 }
 textarea:focus{outline:2px solid var(--ai);outline-offset:1px}
-button{
+.sousa button{
   font:inherit;
   cursor:pointer;
   border-radius:2px;
@@ -62,8 +94,8 @@ button{
   width:100%;
   margin-top:12px;
 }
-button.usu{background:transparent;color:var(--ai)}
-button:active{transform:translateY(1px)}
+.sousa button.usu{background:transparent;color:var(--ai)}
+.sousa button:active{transform:translateY(1px)}
 .modoru{
   display:inline-block;
   margin-top:18px;
@@ -84,39 +116,85 @@ button:active{transform:translateY(1px)}
     <p class="oshirase">
       まずは大事な最初の一歩を一緒に始めましょう！
     </p>
-    <p class="setsumei">
+    <p class="setsumei" id="setsumei">
       候補日を書きかえたり、言い回しを直したりして、自由に使ってください。<br>
       使わない方は、このページは無視してもらって大丈夫です。
     </p>
-    <textarea id="bun" rows="18">おつかれさまです。[部署名]の[自分の名前]です。
 
-この度、[イベント名（例：〇〇さんの送別会）]の幹事を務めさせていただくことになりました。
+    <div class="tabu" role="tablist">
+      <button type="button" role="tab" id="tab-kiku" aria-selected="true">日づけをきく<small>みんなの都合を聞く</small></button>
+      <button type="button" role="tab" id="tab-kimeta" aria-selected="false">日づけは決めている<small>出欠だけ聞く</small></button>
+    </div>
+    <textarea id="bun" rows="18"></textarea>
 
-さっそくですが、開催に向けて皆様の日程を調整したくご連絡いたしました。
-
-日程を決めたいと思います。
-参加できそうな日を【〇月〇日(〇)まで】に、このメールへの返信で教えてください。
-
-【候補日】
-・　　月　　日（　）
-・　　月　　日（　）
-・　　月　　日（　）
-
-※上記以外にご都合の良い日があれば、あわせて教えていただけますと幸いです。
-
-※不参加の場合は、その旨をこの返信で伝えて頂いても構いません。
-
-日程が固まり次第、あらためてご連絡します。
-よろしくお願いいたします。</textarea>
-    <button type="button" id="copy">コピーする</button>
-    <button type="button" class="usu" id="reset">もとの文章に戻す</button>
+    <div class="sousa">
+      <button type="button" id="copy">コピーする</button>
+      <button type="button" class="usu" id="reset">もとの文章に戻す</button>
+    </div>
   </div>
   <a class="modoru" href="index.html" id="modoru">← dear幹事にもどる</a>
 </div>
 
 <script>
-var moto = document.getElementById('bun').value;
 function el(id){ return document.getElementById(id); }
+
+/* ── 2つのひな形 ── */
+var MOTO = {
+  kiku:
+'おつかれさまです。[部署名]の[自分の名前]です。\n\n' +
+'この度、[イベント名（例：〇〇さんの送別会）]の幹事を務めさせていただくことになりました。\n\n' +
+'さっそくですが、開催に向けて皆様の日程を調整したくご連絡いたしました。\n\n' +
+'日程を決めたいと思います。\n' +
+'参加できそうな日を【〇月〇日(〇)まで】に、このメールへの返信で教えてください。\n\n' +
+'【候補日】\n' +
+'・　　月　　日（　）\n' +
+'・　　月　　日（　）\n' +
+'・　　月　　日（　）\n\n' +
+'※上記以外にご都合の良い日があれば、あわせて教えていただけますと幸いです。\n\n' +
+'※不参加の場合は、その旨をこの返信で伝えて頂いても構いません。\n\n' +
+'日程が固まり次第、あらためてご連絡します。\n' +
+'よろしくお願いいたします。',
+
+  kimeta:
+'おつかれさまです。[部署名]の[自分の名前]です。\n\n' +
+'この度、[イベント名（例：〇〇さんの送別会）]の幹事を務めさせていただくことになりました。\n\n' +
+'開催日が決まりましたので、ご案内いたします。\n\n' +
+'【日時】　　月　　日（　）　　時　　分〜\n\n' +
+'【場所】\n' +
+'①[お店の名前]\n' +
+'②[◯◯駅周辺で考え中です]\n' +
+'③[決まり次第ご連絡します]\n\n' +
+'【会費】\n' +
+'①[〇〇〇〇円くらい]\n' +
+'②[決まり次第ご連絡します]\n\n' +
+'お手数ですが、参加・不参加を【〇月〇日(〇)まで】に、このメールへの返信で教えてください。\n\n' +
+'※ご都合が合わない場合も、その旨を返信いただけると助かります。\n\n' +
+'※途中参加・途中退席も大歓迎です。あわせて教えていただけますと幸いです。\n\n' +
+'会の詳細は、決まり次第あらためてご連絡します。\n' +
+'よろしくお願いいたします。'
+};
+
+var SETSUMEI = {
+  kiku:  '候補日を書きかえたり、言い回しを直したりして、自由に使ってください。<br>使わない方は、このページは無視してもらって大丈夫です。',
+  kimeta:'日時やお店を書きかえたり、言い回しを直したりして、自由に使ってください。<br>使わない方は、このページは無視してもらって大丈夫です。'
+};
+
+/* タブごとに書きかえた内容を覚えておく（切りかえても消えない） */
+var ima = 'kiku';
+var kakikae = { kiku: MOTO.kiku, kimeta: MOTO.kimeta };
+el('bun').value = kakikae[ima];
+
+function kirikae(tsugi){
+  if(tsugi === ima) return;
+  kakikae[ima] = el('bun').value;
+  ima = tsugi;
+  el('bun').value = kakikae[ima];
+  el('setsumei').innerHTML = SETSUMEI[ima];
+  el('tab-kiku').setAttribute('aria-selected', ima === 'kiku' ? 'true' : 'false');
+  el('tab-kimeta').setAttribute('aria-selected', ima === 'kimeta' ? 'true' : 'false');
+}
+el('tab-kiku').addEventListener('click', function(){ kirikae('kiku'); });
+el('tab-kimeta').addEventListener('click', function(){ kirikae('kimeta'); });
 
 el('modoru').addEventListener('click', function(e){
   if(!confirm('dear幹事にもどりますか？書きかえた文章は消えます。')) { e.preventDefault(); return; }
@@ -161,9 +239,11 @@ el('copy').addEventListener('click', function(){
   utsusu(el('bun').value, el('copy'));
 });
 el('reset').addEventListener('click', function(){
-  if(!confirm('書きかえた文章を消して、もとの文章に戻します。よろしいですか。')) return;
+  var namae = (ima === 'kiku') ? '「日づけをきく」' : '「日づけは決めている」';
+  if(!confirm(namae + 'の書きかえた文章を消して、もとの文章に戻します。よろしいですか。')) return;
   if(!confirm('本当に戻しますか？書きかえた内容は元に戻せません。')) return;
-  el('bun').value = moto;
+  el('bun').value = MOTO[ima];
+  kakikae[ima] = MOTO[ima];
 });
 </script>
 </body>
