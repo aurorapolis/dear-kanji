@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  dear幹事 (dear-kanji) v130
+  dear幹事 (dear-kanji) v131
   Copyright (c) 2026 aurorapolis - All Rights Reserved.
 
   本作品の複製・改変・再配布・商用利用を禁じます。
@@ -1560,39 +1560,31 @@ body.koukokuAri{padding-bottom:calc(128px + env(safe-area-inset-bottom))}
 .kaiGyo button{margin:0 !important;padding:7px 10px;font-size:13px;border:1px solid #4a6b88;background:transparent;color:#dfe7ee;border-radius:3px;cursor:pointer;white-space:nowrap}
 .kaiGyo button.kesu{border-color:#7a4a4a;color:#e0aaaa}
 
-/* ---- v105 はじめて開いたときの画面(もんじゃ君のごあいさつ) ---- */
-#hajimeBako{z-index:55}
-.hajimeMonja{
-  display:block;margin:6px auto 0;padding:0;width:150px;
-  background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;
-  animation:hajimeYure 2.4s ease-in-out infinite;transform-origin:50% 100%;
-}
-.hajimeMonja img{display:block;width:150px;height:auto;pointer-events:none}
-.hajimeMonja:focus-visible{outline:2px solid #d9bf85;outline-offset:4px;border-radius:8px}
-@keyframes hajimeYure{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg) translateY(-3px)}}
-.hajimeTap{
-  display:inline-block;margin-top:8px;padding:5px 12px;
-  background:var(--kami);color:var(--sumi);border-radius:10px;
-  font-size:12.5px;line-height:1.6;
-}
-#hajimeBako .rouNaka p{font-size:14px;line-height:1.95}
-#hajimeBako .rouNaka h3{font-size:21px;letter-spacing:.08em;white-space:nowrap}
-#hajimeBako .hajimeOrei{margin-top:4px;text-align:left}
-.hajimeOrei b{color:var(--kami);font-weight:600}
-.hajimeNamae{margin-top:20px;padding:14px 14px 16px;border:1px solid #3b5f80;border-radius:3px;text-align:left}
-.hajimeNamae label{color:#dfe7ee;font-size:13.5px;margin:0 0 7px}
-.hajimeNamae input{background:#0b1b2c;border:1px solid #4a6b88;color:var(--kami);font-size:18px;text-align:center}
-.hajimeNamae input::placeholder{color:#3f6183}
-.hajimeNamae small{display:block;margin-top:7px;color:#8fa6bb;font-size:12px;line-height:1.7}
-.hajimeMemo{
-  margin-top:16px;padding:12px 14px;border:1px dashed #4a6b88;border-radius:3px;
-  font-size:13px;color:#b9c8d6;text-align:left;line-height:1.9;
-}
-.hajimeMemo b{color:#d9bf85;font-weight:600}
-.hajimeMemo p{margin:0 0 6px}
-.hajimeMemo p:last-child{margin-bottom:0}
-#hajimeBako #hajimeStart{width:100%;background:var(--shu);border-color:var(--shu);font-size:17px;padding:14px 12px;letter-spacing:.06em;text-indent:0}
-@media (prefers-reduced-motion:reduce){.hajimeMonja{animation:none}}
+/* ---- v131 はじめて開いたときの画面(hajime-v2。もんじゃ君のごあいさつ) ---- */
+#hajimeBako{z-index:55;background:#16304d;padding:0;align-items:flex-start}
+#hajimeBako .hjGamen{width:100%;max-width:420px;margin:0 auto;min-height:100%;padding:40px 24px 36px;display:flex;flex-direction:column;text-align:left;font-family:"Hiragino Maru Gothic ProN","Zen Maru Gothic","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;color:#f6efe0}
+.hjRogo{display:flex;align-items:center;gap:10px}
+.hjRogo span{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:800;font-size:20px;letter-spacing:.04em;color:#e8c766}
+.hjAisatsu{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+#hajimeBako .hjAisatsu h1{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:800;font-size:25px;line-height:1.45;color:#f6efe0;letter-spacing:0;white-space:normal;margin:0}
+#hajimeBako .hjAisatsu p{font-size:14px;line-height:1.75;color:#e6dfcf;text-align:left;white-space:normal}
+.hjSanpo{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hjFuki{position:relative;background:#f6efe0;color:#16304d;border-radius:16px;padding:10px 14px;font-size:13px;line-height:1.6;font-weight:700;max-width:332px;text-align:center}
+.hjFuki::after{content:"";position:absolute;left:50%;bottom:-8px;margin-left:-8px;border-left:8px solid transparent;border-right:8px solid transparent;border-top:9px solid #f6efe0}
+.hjMonjaWaku{position:relative;margin-top:6px}
+#hajimeBako .hajimeMonja{display:block;margin:0;width:124px;height:124px;border-radius:50%;border:3px solid #d9b25a;background:#000;padding:0;overflow:hidden;animation:hjBounce 2.4s ease-in-out infinite;transform-origin:50% 50%}
+#hajimeBako .hajimeMonja img{width:100%;height:100%;object-fit:cover;object-position:50% 8%;display:block;pointer-events:none}
+.hjTapBadge{position:absolute;right:-26px;top:2px;background:#e8c766;color:#16304d;font-weight:800;font-size:12px;border-radius:999px;padding:4px 10px;animation:hjPulse 1.4s ease-in-out infinite;pointer-events:none}
+@keyframes hjBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes hjPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.12);opacity:.85}}
+.hjNick{margin-top:18px;background:#f6efe0;color:#16304d;border-radius:20px;padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px}
+#hajimeBako .hjNick label{font-size:14px;font-weight:700;color:#16304d;margin:0;letter-spacing:0}
+#hajimeBako .hjNick input{width:100%;height:48px;border-radius:12px;border:2px solid #b9a77a;background:#fffdf7;color:#16304d;font-size:16px;padding:0 14px;text-align:left}
+#hajimeBako .hjNick input::placeholder{color:#a8a08c}
+.hjNick small{font-size:12px;line-height:1.5;color:#4b5a6b}
+#hajimeBako #hajimeStart{height:auto;min-height:52px;border-radius:14px;border:none;background:#e8c766;color:#16304d;font-size:17px;font-weight:800;padding:8px 10px;letter-spacing:0;text-indent:0}
+.hjBoyaki{margin-top:12px;border:1.5px solid #d9b25a;border-radius:16px;padding:12px 14px;font-size:12.5px;line-height:1.7;color:#e6dfcf}
+@media (prefers-reduced-motion:reduce){#hajimeBako .hajimeMonja,.hjTapBadge{animation:none}}
 
 /* ---- v107 任務完了の動画(紙吹雪が消えたら「届いています」→タップで再生。2本が交互) ---- */
 .ninmuEiga{position:relative;margin:14px auto 0;max-width:380px}
@@ -2336,23 +2328,31 @@ button.bingoFuda.kagi{color:#a39a87}
 
 <!-- v105 はじめて開いたときの画面(初回だけ。もんじゃ君がごあいさつ) -->
 <div class="rou" id="hajimeBako" hidden role="dialog" aria-modal="true" aria-labelledby="hajimeMidashi">
-  <div class="rouNaka" style="width:100%;max-width:420px">
-    <button type="button" class="hajimeMonja" id="hajimeMonja" aria-label="もんじゃ君(タップすると説明書が開きます)">
-      <img id="hajimeImg" src="img/monja-tux.webp" alt="" width="150" height="168" decoding="async">
-    </button>
-    <span class="hajimeTap">↑ ぼくをタップすると、説明書が開きます</span>
-    <h3 id="hajimeMidashi">はじめまして、もんじゃ君です</h3>
-    <p class="hajimeOrei">ダウンロードしてくれて、ありがとうございます。<br>そして、<b>dear幹事に出会ってくれて</b>、ありがとうございます。<br>会が開かれるのは、幹事さんのおかげです。（ぼくは鉄板の上から、拍手しています）</p>
-    <div class="hajimeNamae">
-      <label for="hajimeNamaeIri">幹事さんのニックネームを教えてください</label>
+  <div class="hjGamen">
+    <div class="hjRogo">
+      <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16.5" fill="#16304d" stroke="#d9b25a" stroke-width="3"/><circle cx="18" cy="18" r="11" fill="none" stroke="#d9b25a" stroke-width="1" stroke-dasharray="2 2"/><path d="M18 9.5l2.4 5.2 5.6.6-4.2 3.8 1.2 5.5-5-2.9-5 2.9 1.2-5.5-4.2-3.8 5.6-.6z" fill="#d9b25a"/></svg>
+      <span>dear幹事</span>
+    </div>
+    <div class="hjAisatsu">
+      <h1 id="hajimeMidashi">ダウンロードして<br>くれて、ありがとう。</h1>
+      <p>たくさんあるアプリの中から、dear幹事を見つけてくれて、出会ってくれて、ありがとうございます。</p>
+    </div>
+    <div class="hjSanpo">
+      <div class="hjFuki">はじめまして、もんじゃ君です。<br>ぼくをタップすると「説明書」になるよ。<br>アプリの中でも、散歩してるぼくを探してね。</div>
+      <div class="hjMonjaWaku">
+        <button type="button" class="hajimeMonja" id="hajimeMonja" aria-label="もんじゃ君をタップして説明書を開く">
+          <img id="hajimeImg" src="img/monja-tux.webp" alt="もんじゃ君" decoding="async">
+        </button>
+        <div class="hjTapBadge" aria-hidden="true">タップ!</div>
+      </div>
+    </div>
+    <div class="hjNick">
+      <label for="hajimeNamaeIri">幹事さんのニックネーム</label>
       <input type="text" id="hajimeNamaeIri" placeholder="例：ゆうちゃん" maxlength="12" autocomplete="off" enterkeyhint="done">
-      <small>お誘い文などに使います。本名じゃなくてOK。あとからいつでも変えられます。</small>
+      <small>本名じゃなくてOK。あとからいつでも変えられます。</small>
+      <button type="button" id="hajimeStart">ニックネームを入れずにはじめる！</button>
     </div>
-    <div class="hajimeMemo">
-      <p><b>説明書は、ぼくの中に</b><br>アプリのなかを散歩しているぼくを見つけてタップしても、説明書が開きます。迷ったら、ぼくを探してください。</p>
-      <p><b>使いにくいところ・バグを見つけたら</b><br>いちばん下の「ぼやきポスト」から教えてください。開発者にちゃんと届きます。</p>
-    </div>
-    <button type="button" class="niji" id="hajimeStart">ニックネームを入れずにはじめる！</button>
+    <div class="hjBoyaki">使いづらいところやバグを見つけたら、アプリ内の「ぼやきポスト」から教えてください。もんじゃ君が、こっそり直しに走ります。</div>
   </div>
 </div>
 <!-- v123 購入コードを入れる画面(購入コード係と通信して、この端末を登録する) -->
