@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  dear幹事 (dear-kanji) v129
+  dear幹事 (dear-kanji) v130
   Copyright (c) 2026 aurorapolis - All Rights Reserved.
 
   本作品の複製・改変・再配布・商用利用を禁じます。
@@ -1577,7 +1577,8 @@ body.koukokuAri{padding-bottom:calc(128px + env(safe-area-inset-bottom))}
 }
 #hajimeBako .rouNaka p{font-size:14px;line-height:1.95}
 #hajimeBako .rouNaka h3{font-size:21px;letter-spacing:.08em;white-space:nowrap}
-#hajimeBako .hajimeOrei{margin-top:4px}
+#hajimeBako .hajimeOrei{margin-top:4px;text-align:left}
+.hajimeOrei b{color:var(--kami);font-weight:600}
 .hajimeNamae{margin-top:20px;padding:14px 14px 16px;border:1px solid #3b5f80;border-radius:3px;text-align:left}
 .hajimeNamae label{color:#dfe7ee;font-size:13.5px;margin:0 0 7px}
 .hajimeNamae input{background:#0b1b2c;border:1px solid #4a6b88;color:var(--kami);font-size:18px;text-align:center}
@@ -1590,11 +1591,7 @@ body.koukokuAri{padding-bottom:calc(128px + env(safe-area-inset-bottom))}
 .hajimeMemo b{color:#d9bf85;font-weight:600}
 .hajimeMemo p{margin:0 0 6px}
 .hajimeMemo p:last-child{margin-bottom:0}
-#hajimeBako #hajimeStart{width:100%;background:var(--shu);border-color:var(--shu);font-size:17px;padding:14px 12px;letter-spacing:.2em;text-indent:.2em}
-#hajimeBako #hajimeSkip{
-  background:none;border:0;color:#8fa6bb;font-size:12.5px;padding:8px 4px;margin-top:6px;
-  text-decoration:underline;text-underline-offset:3px;letter-spacing:0;
-}
+#hajimeBako #hajimeStart{width:100%;background:var(--shu);border-color:var(--shu);font-size:17px;padding:14px 12px;letter-spacing:.06em;text-indent:0}
 @media (prefers-reduced-motion:reduce){.hajimeMonja{animation:none}}
 
 /* ---- v107 任務完了の動画(紙吹雪が消えたら「届いています」→タップで再生。2本が交互) ---- */
@@ -2345,18 +2342,17 @@ button.bingoFuda.kagi{color:#a39a87}
     </button>
     <span class="hajimeTap">↑ ぼくをタップすると、説明書が開きます</span>
     <h3 id="hajimeMidashi">はじめまして、もんじゃ君です</h3>
-    <p class="hajimeOrei">ダウンロードしてくれて、ありがとうございます。<br>そして、幹事を引き受けてくれて、ありがとうございます。会が開かれるのは、あなたのおかげです。（ぼくは鉄板の上から、拍手しています）</p>
+    <p class="hajimeOrei">ダウンロードしてくれて、ありがとうございます。<br>そして、<b>dear幹事に出会ってくれて</b>、ありがとうございます。<br>会が開かれるのは、幹事さんのおかげです。（ぼくは鉄板の上から、拍手しています）</p>
     <div class="hajimeNamae">
-      <label for="hajimeNamaeIri">まずは、幹事さんのお名前を教えてください（ニックネームでOK）</label>
-      <input type="text" id="hajimeNamaeIri" placeholder="例：田中" autocomplete="off">
-      <small>お誘い文などに使います。あとから「一 会のこと」でいつでも直せます。</small>
+      <label for="hajimeNamaeIri">幹事さんのニックネームを教えてください</label>
+      <input type="text" id="hajimeNamaeIri" placeholder="例：ゆうちゃん" maxlength="12" autocomplete="off" enterkeyhint="done">
+      <small>お誘い文などに使います。本名じゃなくてOK。あとからいつでも変えられます。</small>
     </div>
     <div class="hajimeMemo">
-      <p><b>使いにくいところ・バグを見つけたら</b><br>いちばん下の「ぼやきポスト」へどうぞ。開発者にちゃんと届きます。</p>
-      <p><b>説明書は、ぼくの中に</b><br>アプリのなかを散歩しているぼくをタップしても、説明書が開きます。迷ったら、ぼくを呼んでください。</p>
+      <p><b>説明書は、ぼくの中に</b><br>アプリのなかを散歩しているぼくを見つけてタップしても、説明書が開きます。迷ったら、ぼくを探してください。</p>
+      <p><b>使いにくいところ・バグを見つけたら</b><br>いちばん下の「ぼやきポスト」から教えてください。開発者にちゃんと届きます。</p>
     </div>
-    <button type="button" class="niji" id="hajimeStart">はじめる</button>
-    <button type="button" id="hajimeSkip">お名前は、あとで入れる</button>
+    <button type="button" class="niji" id="hajimeStart">ニックネームを入れずにはじめる！</button>
   </div>
 </div>
 <!-- v123 購入コードを入れる画面(購入コード係と通信して、この端末を登録する) -->
@@ -5290,11 +5286,14 @@ DEAR.READY = !!(DEAR.API_URL && DEAR.SHOP_URL);
     shimau();
     window.scrollTo(0, 0);
   });
-  document.getElementById('hajimeSkip').addEventListener('click', function(){
-    try{ localStorage.setItem(hajimeNa, '1'); }catch(e){}
-    bako.hidden = true;
-    window.scrollTo(0, 0);
-  });
+  /* ボタンの文字:空のあいだは「ニックネームを入れずに」、入れたら「〇〇幹事として」 */
+  var startBtn = document.getElementById('hajimeStart');
+  function botanKousin(){
+    var n = iri.value.trim();
+    startBtn.textContent = n ? (n + '幹事として、はじめる！') : 'ニックネームを入れずにはじめる！';
+  }
+  iri.addEventListener('input', botanKousin);
+  botanKousin();
   /* もんじゃ君をタップ:お名前を保存して、説明書へ */
   document.getElementById('hajimeMonja').addEventListener('click', function(){
     shimau();
