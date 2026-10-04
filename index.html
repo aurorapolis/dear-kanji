@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  dear幹事 (dear-kanji) v132
+  dear幹事 (dear-kanji) v134
   Copyright (c) 2026 aurorapolis - All Rights Reserved.
 
   本作品の複製・改変・再配布・商用利用を禁じます。
@@ -1372,8 +1372,14 @@ input.nijiIri{
 .kagiYotei summary::-webkit-details-marker{display:none}
 .kagiYotei details[open] summary{margin-bottom:8px}
 .kagiShousai p{margin:0 0 9px}
-.kagiShousai section{padding-bottom:12px;margin-bottom:14px;border-bottom:1px dotted #2f4d69}
-.kagiShousai section:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.kagiShousai{margin-top:6px}
+.kagiShousai section{padding:0 12px 12px;margin:0 0 22px;background:rgba(255,255,255,.06);border:1px solid #476b8c;border-left:4px solid #d9bf85;border-radius:8px;overflow:hidden;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+.kagiShousai section:last-child{margin-bottom:0}
+.kagiShousai section:nth-child(even){border-left-color:#e08a7f}
+.kagiShousai section:nth-child(even) .kagiOoMidashi{margin:0 0 8px !important;text-align:center;font-size:22px;font-weight:700;letter-spacing:.12em;color:#f0d58a}
+.kagiOoMidashi small{font-size:15px;margin-left:4px;color:#e9d49a;letter-spacing:.04em}
+.kagiTitle{background:rgba(224,138,127,.16);border-bottom-color:#e08a7f}
+.kagiTitle{margin:0 -12px 12px;padding:8px 12px;background:rgba(217,191,133,.18);border-bottom:1px solid #d9bf85;color:#f0d58a;font-size:15.5px;font-weight:700;letter-spacing:.06em}
 .kagiShousai figure{margin:2px 0 10px;text-align:center}
 .kagiZu{display:block;margin:0 auto;max-width:100%;height:auto;border:1px solid #2a4864;border-radius:6px;background:#0e2035}
 .kagiZu.yoko{width:100%}
@@ -2259,34 +2265,42 @@ button.bingoFuda.kagi{color:#a39a87}
         <summary>↓有料版のもっと詳しい説明を見てみる</summary>
         <div class="kagiShousai">
           <section>
+            <h4 class="kagiTitle">①広告なし</h4>
             <figure><img class="kagiZu yoko" src="img/yuryo-1-koukoku.webp" width="1612" height="1086" alt="無料版は画面の下に広告が出て、有料版は出ない" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"></figure>
-            <p><b>①広告なし</b><br>画面のいちばん下に居座っている広告が消えます。スマホの下半分が、ぜんぶあなたのものに。</p>
+            <p>画面のいちばん下に居座っている広告が消えます。スマホの下半分が、ぜんぶあなたのものに。</p>
           </section>
           <section>
+            <h4 class="kagiTitle">②チラシ背景</h4>
+            <p class="kagiOoMidashi">定番3種類<small>（無料）</small></p>
             <figure><img class="kagiZu yoko" src="img/yuryo-2c-sanshu.webp" width="960" height="591" alt="無料で使える定番のチラシ3種類" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"></figure>
             <figure><img class="kagiZu tate" src="img/yuryo-2d-shashin.webp" width="728" height="1308" alt="好きな写真を背景にしたチラシ。いちばん下の「dear幹事がお手伝いしました」は赤い枠のとおり消せない" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"></figure>
-            <p><b>②チラシ背景</b><br>無料は、定番の3種類がすべて使えます。有料は、お店の写真でも、みんなの集合写真でも、好きな写真をチラシの背景にできます。<br><span class="kagiMemo">※チラシのいちばん下の「アプリ dear幹事 がお手伝いしました」の見出しは、有料版でも消せません（上の写真の赤い枠のところです）。ここは、ぼくの名刺がわりです。</span></p>
+            <p>無料は、定番の3種類がすべて使えます。有料は、お店の写真でも、みんなの集合写真でも、好きな写真をチラシの背景にできます。<br><span class="kagiMemo">※チラシのいちばん下の「アプリ dear幹事 がお手伝いしました」の見出しは、有料版でも消せません（上の写真の赤い枠のところです）。ここは、ぼくの名刺がわりです。</span></p>
           </section>
           <section>
+            <h4 class="kagiTitle">③ビンゴゲーム</h4>
             <figure><img class="kagiZu tate" src="img/yuryo-3-bingo.webp?v=129" width="780" height="1356" alt="ビンゴ画面の見本。タップしたマスに紋章スタンプが押される" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"></figure>
-            <p><b>③ビンゴゲーム</b><br>忘年会の定番を、アプリひとつで。参加者のスマホにビンゴカードを送ることができます（LINE・QRコード・メールなど）。参加者が自分でタップして開けていきます。<br>幹事のスマホにはビンゴのガラガラを回す画面が出ます。そのお手伝いは、もんじゃ君がしてくれます！（たまに、キックで回します）</p>
+            <p>忘年会の定番を、アプリひとつで。参加者のスマホにビンゴカードを送ることができます（LINE・QRコード・メールなど）。参加者が自分でタップして開けていきます。<br>幹事のスマホにはビンゴのガラガラを回す画面が出ます。そのお手伝いは、もんじゃ君がしてくれます！（たまに、キックで回します）</p>
             <button type="button" class="usu" id="kagiBingoOtameshi" style="background:transparent;color:#f0d58a;border-color:#d4af57;width:100%;margin-top:8px">🎰 無料でおためしする</button>
           </section>
           <section>
+            <h4 class="kagiTitle">④景品代の自動計算</h4>
             <figure><img class="kagiZu tate" src="img/yuryo-4-keihin.webp?v=129" width="780" height="1064" alt="景品代の計算画面の見本。景品の合計が、ひとりあたりの会費に入る" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"></figure>
-            <p><b>④景品代の自動計算</b><br>景品の値段を入れると、会費の計算につながります。電卓を探す幹事の姿は、もう見なくて済みます。<br>「みんなで出すもの」に景品を入れて🎯をつけると、その合計がひとりあたりの会費に入り、ビンゴの景品一覧にも、そのまま並びます。</p>
+            <p>景品の値段を入れると、会費の計算につながります。電卓を探す幹事の姿は、もう見なくて済みます。<br>「みんなで出すもの」に景品を入れて🎯をつけると、その合計がひとりあたりの会費に入り、ビンゴの景品一覧にも、そのまま並びます。</p>
           </section>
           <section>
+            <h4 class="kagiTitle">⑤当日の進行表</h4>
             <figure><img class="kagiZu tate" src="img/yuryo-5-shinkou.webp" width="780" height="1982" alt="当日の進行表の画面。開会からの時間と担当が並ぶ" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"></figure>
-            <figure><img class="kagiZu tate" src="img/yuryo-5b-share.webp" width="716" height="1066" alt="進行表の送信画面。LINEで送るボタンとコピーするボタン" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"></figure><p><b>⑤当日の進行表</b><br>始まりの時間を入れるだけで、タイムスケジュールの案が並びます。簡単な操作で内容を変更できます。<br>決まったら「LINEで送る」か「コピーする」ボタンで、自分にも、ほかの人にも送ることができます。<br>当日あわてないように「次、何だっけ？」を減らしましょう！</p>
+            <figure><img class="kagiZu tate" src="img/yuryo-5b-share.webp" width="716" height="1066" alt="進行表の送信画面。LINEで送るボタンとコピーするボタン" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"></figure><p>始まりの時間を入れるだけで、タイムスケジュールの案が並びます。簡単な操作で内容を変更できます。<br>決まったら「LINEで送る」か「コピーする」ボタンで、自分にも、ほかの人にも送ることができます。<br>当日あわてないように「次、何だっけ？」を減らしましょう！</p>
           </section>
           <section>
+            <h4 class="kagiTitle">⑥会を3件以上、同時に保存</h4>
             <figure><img class="kagiZu tate" src="img/yuryo-6b-kai.webp" width="780" height="946" alt="3つの会を同時に保存している画面。会ごとに日にちと人数が並び、ひらく・消すが選べる" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"></figure>
-            <p><b>⑥会を3件以上、同時に保存</b><br>無料は2件まで。飲み会が重なる時期の幹事さんは、有料版へどうぞ。</p>
+            <p>無料は2件まで。飲み会が重なる時期の幹事さんは、有料版へどうぞ。</p>
           </section>
           <section>
+            <h4 class="kagiTitle">⑦開発者が泣いて喜ぶ</h4>
             <figure><img class="kagiMonja" src="img/yuryo-7-monja.webp" width="445" height="495" alt="もんじゃ君" loading="lazy" decoding="async" onerror="this.parentNode.hidden=true"><span class="kagiHito">ありがとうございます…！（うれし泣き）</span></figure>
-            <p><b>⑦開発者が泣いて喜ぶ</b><br>300円は、次のアプリの開発費になります(aurorapolisではいろいろ進行中です)。画面の向こうで、開発者がひっそり泣いて喜びます。</p>
+            <p>300円は、次のアプリの開発費になります(aurorapolisではいろいろ進行中です)。画面の向こうで、開発者がひっそり泣いて喜びます。</p>
           </section>
         </div>
       </details>
