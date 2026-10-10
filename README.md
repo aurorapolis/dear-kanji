@@ -4,7 +4,7 @@
 
 飲み会の幹事を手助けするWebアプリです。はじめての幹事さんにも、もう数えていない玄人幹事さんにも。
 
-**▶ 使ってみる:** https://aurorapolis.github.io/dear-kanji/
+**▶ 使ってみる:** https://dear-kanji.app/
 
 ## できること
 
